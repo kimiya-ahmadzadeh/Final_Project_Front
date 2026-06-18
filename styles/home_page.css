@@ -1,0 +1,8 @@
+.home-page {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 950px;
+    gap: 50px;
+}
