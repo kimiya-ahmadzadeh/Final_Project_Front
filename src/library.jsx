@@ -1,5 +1,7 @@
+
+
 export function Library() {
     return (
-        <div>MY Library</div>
+        <div>My Library</div>
     );
 }

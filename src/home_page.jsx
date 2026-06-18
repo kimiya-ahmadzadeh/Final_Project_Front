@@ -16,6 +16,13 @@ export function HomePage() {
             <BookRows books={books} header={"Random List"} />
             <BookRows books={books} header={"Random List"} />
             <BookRows books={books} header={"Random List"} />
+            <BookRows books={books} header={"Random List"} />
+            <BookRows books={books} header={"Random List"} />
+            <BookRows books={books} header={"Random List"} />
+            <BookRows books={books} header={"Random List"} />
+            <BookRows books={books} header={"Random List"} />
+            <BookRows books={books} header={"Random List"} />
+            <BookRows books={books} header={"Random List"} />
         </div>
     )
 }

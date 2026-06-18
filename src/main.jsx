@@ -5,11 +5,13 @@ import App from './App.jsx';
 import { HomePage } from './home_page.jsx';
 import { Profile } from './profile.jsx';
 import { Library } from './library.jsx';
+import { Book } from './book.jsx';
 
 const router = createBrowserRouter([
   { path: "/home", element: <HomePage /> },
   { path: "/library", element: <Library /> },
-  { path: "/profile", element: <Profile /> }
+  { path: "/profile", element: <Profile /> },
+  { path: "/book/:title", element: <Book /> }
 ]);
 
 createRoot(document.getElementById('root')).render(

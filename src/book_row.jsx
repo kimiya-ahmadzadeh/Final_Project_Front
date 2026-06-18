@@ -1,11 +1,9 @@
 import { Tab, Tabs } from "@mui/material";
 import "../styles/book_row.css";
 import { BookCard } from "./book_card";
-import { useState } from 'react';
 
 export function BookRows(props) {
 
-    const [card, setCard] = useState();
     return (
         <div className="book-row">
             <div className="row-header">{props.header}</div>
