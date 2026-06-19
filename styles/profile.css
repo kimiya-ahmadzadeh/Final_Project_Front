@@ -1,0 +1,39 @@
+.profile {
+    display: flex;
+    flex-direction: column;
+    height: 100dvh;
+}
+
+.profile-card {
+    height: 85%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-pic {
+    width: 40%;
+    height: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-info {
+    width: 70%;
+    height: 80%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.personal-info {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.login-info {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
