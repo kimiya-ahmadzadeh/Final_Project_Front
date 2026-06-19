@@ -12,7 +12,7 @@ export function Header() {
             <SearchModal visibility={searchVisibility} />
             <div className="header-content">
                 <h1>Book Worm</h1>
-                <Link to="/home" >
+                <Link to="/" >
                     <div><Button variant="outlined">Home</Button></div>
                 </Link>
                 <div onClick={() => setSearchVisiblity("visible")}><Button variant="outlined">Search</Button></div>

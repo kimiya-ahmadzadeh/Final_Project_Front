@@ -7,11 +7,3 @@
 .list-header {
     height: 5%;
 }
-
-.list {
-    width: 100%;
-    height: 90%;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-}

@@ -8,7 +8,7 @@ import { Library } from './library.jsx';
 import { Book } from './book.jsx';
 
 const router = createBrowserRouter([
-  { path: "/home", element: <HomePage /> },
+  { path: "/", element: <HomePage /> },
   { path: "/library", element: <Library /> },
   { path: "/profile", element: <Profile /> },
   { path: "/book/:title", element: <Book /> }
