@@ -1,14 +1,13 @@
-import "../styles/peginated_list.css";
+import "../styles/paginated_books.css";
 import { useEffect, useState } from "react";
-// import ReactPaginate from "react-paginate";
 import { BookCard } from "./book_card";
 import { Pagination } from "@mui/material";
 
 
 export function PaginateBooks(props) {
-    const pageCount = 2;
     const [page, setPage] = useState(1);
     const perPage = 8;
+    const pageCount = Math.ceil(props.books.length / perPage);
     const currentBooks = props.books.slice((page - 1) * perPage, ((page - 1) * perPage + perPage));
 
     const handlePageClick = (event, value) => {

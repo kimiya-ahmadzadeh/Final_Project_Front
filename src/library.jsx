@@ -1,7 +1,9 @@
-import { List, ListItemButton, ListItemText } from "@mui/material";
+import { List, ListItem, ListItemButton, ListItemText, Tabs, Tab } from "@mui/material";
 import "../styles/library.css";
 import { Header } from "./header";
 import { BooksList } from "./books_list";
+import { ReadingLists } from "./reading_list";
+import { useState } from "react";
 
 export function Library() {
     const books = [{ title: "Book1", author: "Author1" }, { title: "Book2", author: "Author2" },
@@ -9,29 +11,33 @@ export function Library() {
     { title: "Book5", author: "Author5" }, { title: "Book6", author: "Author6" },
     { title: "Book7", author: "Author7" }, { title: "Book8", author: "Author8" },
     { title: "Book9", author: "Author9" }, { title: "Book10", author: "Author10" },
-    { title: "Book11", author: "Author11" }, { title: "Book12", author: "Author12" }]
+    { title: "Book11", author: "Author11" }, { title: "Book12", author: "Author12" }];
+
+    const lists = [{ name: "List1", description: "Description1" },
+    { name: "List2", description: "Description2" },
+    { name: "List3", description: "Description3" },
+    { name: "List4", description: "Description4" }];
+
+    const [tab, setTab] = useState(0);
+
+    const handleChange = (event, value) => {
+        setTab(value);
+    };
 
     return (
         <div className="library">
             <Header />
             <div className="library-content">
                 <div className="library-sidebar">
-                    <List>
-                        <ListItemButton selected>
-                            <ListItemText primary="Recent Books" />
-                        </ListItemButton>
-                        <ListItemButton>
-                            <ListItemText primary="Bookmarked Books" />
-                        </ListItemButton>
-                        <ListItemButton>
-                            <ListItemText primary="Favorite Books" />
-                        </ListItemButton>
-                        <ListItemButton>
-                            <ListItemText primary="Book Lists" />
-                        </ListItemButton>
-                    </List>
+                    <Tabs value={tab} onChange={handleChange} orientation="vertical">
+                        <Tab label="Recent Books" />
+                        <Tab label="Bookmarked Books" />
+                        <Tab label="Favorite Books" />
+                        <Tab label="Book Lists" />
+                    </Tabs>
                 </div>
-                <BooksList books={books} />
+                {tab < 3 ? <BooksList books={books} tab={tab}/> : <ReadingLists lists={lists} />}
+
             </div>
         </div>
     );
