@@ -13,8 +13,12 @@ export function PaginateBooks(props) {
     const handlePageClick = (event, value) => {
         setPage(value);
     };
+    // console.log(curre)
 
     return (
+        // <>
+        //     {
+        //         props.books != undefined ?
         <div className="list">
             <div className="page">
                 {currentBooks.map((book, index) => {
@@ -27,5 +31,8 @@ export function PaginateBooks(props) {
                 <Pagination count={pageCount} page={page} onChange={handlePageClick} />
             </div>
         </div>
-    )
+        //             : <div>Nothing</div>
+        //     }
+        // </>
+    );
 }

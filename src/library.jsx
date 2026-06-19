@@ -1,28 +1,34 @@
-import { List, ListItem, ListItemButton, ListItemText, Tabs, Tab } from "@mui/material";
+import { List, ListItem, ListItemButton, ListItemText, Tabs, Tab, Button, Modal, TextField } from "@mui/material";
 import "../styles/library.css";
 import { Header } from "./header";
 import { BooksList } from "./books_list";
-import { ReadingLists } from "./reading_list";
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 export function Library() {
-    const books = [{ title: "Book1", author: "Author1" }, { title: "Book2", author: "Author2" },
-    { title: "Book3", author: "Author3" }, { title: "Book4", author: "Author4" },
-    { title: "Book5", author: "Author5" }, { title: "Book6", author: "Author6" },
-    { title: "Book7", author: "Author7" }, { title: "Book8", author: "Author8" },
-    { title: "Book9", author: "Author9" }, { title: "Book10", author: "Author10" },
-    { title: "Book11", author: "Author11" }, { title: "Book12", author: "Author12" }];
 
-    const lists = [{ name: "List1", description: "Description1" },
-    { name: "List2", description: "Description2" },
-    { name: "List3", description: "Description3" },
-    { name: "List4", description: "Description4" }];
-
+    const navigate = useNavigate();
     const [tab, setTab] = useState(0);
+    const [lists, setList] = useState([{
+        name: "List1", description: "Description1",
+        books: [{ title: "Book1", author: "Author1" }, { title: "Book2", author: "Author2" }, { title: "Book3", author: "Author3" }]
+    },
+    { name: "List2", description: "Description2", books: [{ title: "Book11", author: "Author11" }, { title: "Book12", author: "Author12" }] },
+    { name: "List3", description: "Description3", books: [] },
+    { name: "List4", description: "Description4" }]);
+    const [open, setOpen] = useState(false);
 
     const handleChange = (event, value) => {
+        navigate(`/library/lists/${lists[value].name}`);
         setTab(value);
     };
+
+    const handleList = (newList) => {
+        console.log(newList)
+        const newLists = [...lists, newList];
+        setList(newLists);
+        console.log(lists);
+    }
 
     return (
         <div className="library">
@@ -33,12 +39,25 @@ export function Library() {
                         <Tab label="Recent Books" />
                         <Tab label="Bookmarked Books" />
                         <Tab label="Favorite Books" />
-                        <Tab label="Book Lists" />
+                        {lists.map((list, index) => {
+                            return (
+                                <Tab label={list.name} />
+                            );
+                        })}
                     </Tabs>
+                    <Button onClick={() => setOpen(true)}>Add List</Button>
                 </div>
-                {tab < 3 ? <BooksList books={books} tab={tab}/> : <ReadingLists lists={lists} />}
-
+                <BooksList books={lists[tab].books} tab={lists[tab].name} />
             </div>
+            <Modal open={open} onClose={() => setOpen(false)}>
+                <div className="list-modal">
+                    <h2>New Reading List</h2>
+                    <TextField label="List name" variant="outlined" />
+                    <TextField label="List description" variant="outlined" />
+                    <Button variant="outlined" onClick={() => handleList({ name: "NewList", description: "gvdg", books: [] })}>Add</Button>
+                    <Button variant="outlined" onClick={() => setOpen(false)}>Cancle</Button>
+                </div>
+            </Modal>
         </div>
     );
 }
