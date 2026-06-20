@@ -10,3 +10,21 @@
     justify-content: space-between;
     align-items: center;
 }
+
+.edit-list-modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.modal-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: antiquewhite;
+    height: 40%;
+    width: 40%;
+}

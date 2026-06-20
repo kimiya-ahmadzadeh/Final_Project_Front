@@ -1,5 +1,5 @@
 import "../styles/profile.css";
-import { TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import { Header } from "./header";
 
 export function Profile() {
@@ -21,6 +21,7 @@ export function Profile() {
                     <div className="login-info">
                         <TextField variant="outlined" label="User Name" defaultValue={user.userName} />
                         <TextField variant="outlined" label="Password" defaultValue={user.password} type="password" />
+                        <Button variant="outlined">Confirm Changes</Button>
                     </div>
                 </div>
             </div>

@@ -47,7 +47,7 @@ export function Library() {
                     </Tabs>
                     <Button onClick={() => setOpen(true)}>Add List</Button>
                 </div>
-                <BooksList books={lists[tab].books} tab={lists[tab].name} />
+                <BooksList list={lists[tab]} />
             </div>
             <Modal open={open} onClose={() => setOpen(false)}>
                 <div className="list-modal">
