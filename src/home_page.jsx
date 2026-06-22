@@ -1,5 +1,6 @@
 import "../styles/home_page.css";
 import { BookRows } from "./book_row";
+import { GetUserID } from "./fetch_data";
 import { Header } from "./header";
 
 export function HomePage() {
@@ -10,9 +11,10 @@ export function HomePage() {
     { title: "Book9", author: "Author9" }, { title: "Book10", author: "Author10" },
     { title: "Book11", author: "Author11" }, { title: "Book12", author: "Author12" }]
 
+    const userID = GetUserID();
     return (
         <div className="home-page">
-            <Header />
+            <Header userID={userID} />
             <BookRows books={books} header={"Random List"} />
             <BookRows books={books} header={"Random List"} />
             <BookRows books={books} header={"Random List"} />

@@ -5,7 +5,7 @@ import { SearchModal } from './search_modal';
 import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 
-export function Header() {
+export function Header(props) {
     const [openModal, setOpenModal] = useState("hidden");
     const navigate = useNavigate();
 
