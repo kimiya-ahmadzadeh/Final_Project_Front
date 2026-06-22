@@ -104,3 +104,39 @@ export async function DeleteList(listID) {
         .catch(error => console.log('error', error));
     return data;
 }
+
+export async function GetUserInfo(userID) {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    const requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+        redirect: "follow"
+    };
+    const data = fetch(`${BASE_URL}/users/${userID}`, requestOptions)
+        .then(response => response.json())
+        .catch(error => console.log('error', error));
+    return data;
+}
+
+export async function EditUser(userID, firstName, lastName, bio, username, password) {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    const raw = JSON.stringify({
+        "first_name": `${firstName}`,
+        "last_name": `${lastName}`,
+        "bio": `${bio}`,
+        "username": `${username}`,
+        "password": `${password}`
+    });
+    const requestOptions = {
+        method: "PUT",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow"
+    };
+    const data = fetch(`${BASE_URL}/users/${userID}`, requestOptions)
+        .then(response => response.json())
+        .catch(error => console.log('error', error));
+    return data;
+}
