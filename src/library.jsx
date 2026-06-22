@@ -2,31 +2,36 @@ import { List, ListItem, ListItemButton, ListItemText, Tabs, Tab, Button, Modal,
 import "../styles/library.css";
 import { Header } from "./header";
 import { BooksList } from "./books_list";
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { GetLists } from "./fetch_data";
+import { Loading } from "./loading";
 
 export function Library() {
 
-    const navigate = useNavigate();
     const [tab, setTab] = useState(0);
-    const [lists, setList] = useState([{
-        name: "List1", description: "Description1",
-        books: [{ title: "Book1", author: "Author1" }, { title: "Book2", author: "Author2" }, { title: "Book3", author: "Author3" }]
-    },
-    { name: "List2", description: "Description2", books: [{ title: "Book11", author: "Author11" }, { title: "Book12", author: "Author12" }] },
-    { name: "List3", description: "Description3", books: [] },
-    { name: "List4", description: "Description4" }]);
+    const [lists, setList] = useState([]);
     const [open, setOpen] = useState(false);
 
+    const loadLists = async () => {
+        const user = JSON.parse(localStorage.getItem("userAuth"));
+        console.log(user);
+        const loadedLists = await GetLists(user.id);
+        setList(loadedLists);
+    }
+
+    useEffect(() => {
+        loadLists();
+    }, []);
+
     const handleChange = (event, value) => {
-        navigate(`/library/lists/${lists[value].name}`);
         setTab(value);
     };
 
     const handleList = (newList) => {
         console.log(newList)
         const newLists = [...lists, newList];
-        setList(newLists);
+        // setList(newLists);
         console.log(lists);
     }
 
@@ -36,12 +41,9 @@ export function Library() {
             <div className="library-content">
                 <div className="library-sidebar">
                     <Tabs value={tab} onChange={handleChange} orientation="vertical">
-                        <Tab label="Recent Books" />
-                        <Tab label="Bookmarked Books" />
-                        <Tab label="Favorite Books" />
-                        {lists.map((list, index) => {
+                        {lists.map((list) => {
                             return (
-                                <Tab label={list.name} />
+                                <Tab key={list.id} label={list.name} />
                             );
                         })}
                     </Tabs>

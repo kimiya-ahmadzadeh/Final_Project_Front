@@ -2,6 +2,7 @@ import { Alert, Button, TextField } from "@mui/material";
 import "../styles/login.css";
 import { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
+import { VerifyLogin } from "./fetch_data";
 
 export function LoginPage() {
 
@@ -9,21 +10,24 @@ export function LoginPage() {
     const [password, setPassword] = useState("");
     const [showAlert, setShowAlert] = useState("hidden");
     const navigate = useNavigate();
+
     useEffect(() => {
-        const auth = localStorage.getItem("userAuth");
-        if (auth) {
+        const auth = JSON.parse(localStorage.getItem("userAuth"));
+        if (auth && auth.id) {
             navigate("/");
         }
     }, []);
 
-    const verifyLogin = () => {
-        if (username == "username" && password == "pass") {
-            localStorage.setItem("userAuth", true);
+    const login = async () => {
+        const response = await VerifyLogin(username, password);
+        if (!response.error) {
+            localStorage.setItem("userAuth", JSON.stringify(response.user));
             navigate("/");
         } else {
             setShowAlert("visible");
         }
     }
+
     return (
         <div className="login-page">
             <h2>Welcome to Bookworm</h2>
@@ -31,7 +35,7 @@ export function LoginPage() {
             <div className="login-card">
                 <TextField type="text" variant="outlined" label="Username" required onChange={(e) => setUsername(e.target.value)} />
                 <TextField type="password" variant="outlined" label="Password" required onChange={(e) => setPassword(e.target.value)} />
-                <Button variant="outlined" onClick={verifyLogin}>Login</Button>
+                <Button variant="outlined" onClick={login}>Login</Button>
             </div>
             <Alert severity="error" style={{ visibility: showAlert }}>Wrong username or password</Alert>
         </div>

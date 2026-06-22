@@ -10,7 +10,7 @@ export function Header() {
     const navigate = useNavigate();
 
     const logout = () => {
-        localStorage.setItem("userAuth", "");
+        localStorage.setItem("userAuth", JSON.stringify(""));
         navigate("/login");
     }
 
