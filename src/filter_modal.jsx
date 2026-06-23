@@ -1,9 +1,32 @@
-import { Autocomplete, TextField } from "@mui/material";
+import { Autocomplete, InputLabel, Select, TextField } from "@mui/material";
+import { GetGenres, GetLangs } from "./fetch_data";
+import { useEffect, useState } from "react";
 
 
 export function FilterModal() {
 
-    const cat = ["dfv", "gbdfb", "gdgb", "bdf"]
+    const pagesOpt = ["pages < 100", "100 < pages < 300", "300 < pages < 500 ", "pages > 500"];
+    const [genresOpt, setGenresOpt] = useState([]);
+    const [langOpt, setLangOpt] = useState([]);
+
+    const loadOptions = async () => {
+        const genreObj = await GetGenres();
+        let genres = [];
+        genreObj.forEach(g => {
+            genres.push({ lable: g.name, id: g.id });
+        });
+        const langObj = await GetLangs();
+        let langs = [];
+        langObj.forEach(g => {
+            langs.push({ lable: g.language });
+        });
+        setGenresOpt(genres);
+        setLangOpt(langs);
+    }
+    useEffect(() => {
+        loadOptions();
+    }, []);
+
     return (
         <div className='search-filters'>
             <div className='filter-rows'>
@@ -14,7 +37,9 @@ export function FilterModal() {
                     <Autocomplete
                         multiple
                         disablePortal
-                        options={cat}
+                        options={genresOpt}
+                        getOptionLabel={(option) => option.lable}
+                        getOptionKey={(option) => option.id}
                         renderInput={(params) => <TextField {...params} label="Genre" />}
                     />
                 </div>
@@ -24,16 +49,16 @@ export function FilterModal() {
                     <Autocomplete
                         multiple
                         disablePortal
-                        options={cat}
+                        options={langOpt}
+                        getOptionLabel={(option) => option.lable}
                         renderInput={(params) => <TextField {...params} label="Language" />}
                     />
                 </div>
                 <div className='filter-item'>
                     <Autocomplete
-                        multiple
                         disablePortal
-                        options={cat}
-                        renderInput={(params) => <TextField {...params} label="Country" />}
+                        options={pagesOpt}
+                        renderInput={(params) => <TextField {...params} label="Pages" />}
                     />
                 </div>
             </div>
