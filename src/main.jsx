@@ -7,13 +7,15 @@ import { Profile } from './profile.jsx';
 import { Library } from './library.jsx';
 import { Book } from './book.jsx';
 import { LoginPage } from './login.jsx';
+import { Genre } from './genre.jsx';
 
 const router = createBrowserRouter([
   { path: "/", element: <HomePage /> },
   { path: "/library", element: <Library /> },
   { path: "/profile", element: <Profile /> },
   { path: "/book/:title", element: <Book /> },
-  { path: "/login", element: <LoginPage /> }
+  { path: "/login", element: <LoginPage /> },
+  { path: "/genres/:id", element: <Genre /> }
 ]);
 
 createRoot(document.getElementById('root')).render(
