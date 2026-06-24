@@ -210,3 +210,17 @@ export async function Search() {
         .catch(error => console.log('error', error));
     return data;
 }
+
+export async function SearchGenre(genreID, bookID) {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    const requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+        redirect: "follow"
+    };
+    const data = fetch(`${BASE_URL}/genres/${genreID}/${bookID}`, requestOptions)
+        .then(response => response.json())
+        .catch(error => console.log('error', error));
+    return data;
+} 

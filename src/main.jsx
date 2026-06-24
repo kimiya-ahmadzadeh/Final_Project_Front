@@ -8,9 +8,11 @@ import { Library } from './library.jsx';
 import { Book } from './book.jsx';
 import { LoginPage } from './login.jsx';
 import { Genre } from './genre.jsx';
+import { SearchBooks } from './search_books.jsx';
 
 const router = createBrowserRouter([
   { path: "/", element: <HomePage /> },
+  { path: "/search", element: <SearchBooks /> },
   { path: "/library", element: <Library /> },
   { path: "/profile", element: <Profile /> },
   { path: "/book/:title", element: <Book /> },

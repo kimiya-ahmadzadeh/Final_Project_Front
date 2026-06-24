@@ -1,7 +1,6 @@
 import '../styles/header.css';
 import { Link, useNavigate } from "react-router-dom";
 import Button from '@mui/material/Button';
-import { SearchModal } from './search_modal';
 import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 
@@ -20,13 +19,15 @@ export function Header(props) {
 
     return (
         <div className="main-header">
-            <SearchModal open={openModal} closeModal={closeModal} />
+            {/* <SearchModal open={openModal} closeModal={closeModal} /> */}
             <div className="header-content">
                 <h1>Book Worm</h1>
                 <Link to="/" >
                     <div><Button variant="outlined">Home</Button></div>
                 </Link>
-                <div onClick={() => setOpenModal("visible")}><Button variant="outlined">Search</Button></div>
+                <Link to="/search">
+                    <div><Button variant="outlined">Search</Button></div>
+                </Link>
                 <Link to="/library">
                     <div><Button variant="outlined">My Library</Button></div>
                 </Link>
