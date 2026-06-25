@@ -32,7 +32,7 @@ export function HomePage() {
                     <Header userID={userID} />
                     {genres.map((g) => {
                         return (
-                            <BookRows genre={g} />
+                            <BookRows genre={g} visibility={"hidden"} />
                         );
                     })};
                 </div>

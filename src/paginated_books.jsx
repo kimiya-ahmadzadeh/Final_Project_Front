@@ -23,7 +23,7 @@ export function PaginateBooks(props) {
             <div className="page">
                 {currentBooks.map((book, index) => {
                     return (
-                        <BookCard book={book} />
+                        <BookCard book={book} listID={props.listID} visibility={props.visibility} changeList={props.changeList} />
                     );
                 })}
             </div>

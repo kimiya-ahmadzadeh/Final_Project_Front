@@ -33,7 +33,7 @@ export function Genre() {
                         <p>Total books: {books.length}</p>
                     </div>
                     <div className="genre-books">
-                        <PaginateBooks books={books} />
+                        <PaginateBooks books={books} visibility={"hidden"} />
                     </div>
                 </div>}
         </>

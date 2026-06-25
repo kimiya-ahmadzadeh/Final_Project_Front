@@ -1,0 +1,18 @@
+.comments {
+    display: flex;
+    justify-content: space-evenly;
+    overflow: auto hidden;
+    scroll-snap-type: x mandatory;
+    white-space: nowrap;
+    width: 50%;
+    gap: 20px;
+    padding: 10px;
+}
+
+.comment {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: 1px solid;
+    padding: 10px;
+}

@@ -1,11 +1,15 @@
+.book-card {
+    width: 20%;
+}
+
 .card-content {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
     border: 1px solid;
-    min-width: 20%;
-    max-width: 20%;
+    min-width: 100%;
+    max-width: 100%;
     min-height: 80%;
     max-height: 80%;
 }

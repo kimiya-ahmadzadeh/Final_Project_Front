@@ -275,3 +275,50 @@ export async function GetBookGenres(bookID) {
     return data;
 }
 
+export async function DeleteListBook(listID, bookID) {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    const requestOptions = {
+        method: "DELETE",
+        headers: myHeaders,
+        redirect: "follow"
+    };
+    const data = fetch(`${BASE_URL}/lists/${listID}/${bookID}`, requestOptions)
+        .then(response => response.json())
+        .catch(error => console.log('error', error));
+    return data;
+}
+
+export async function GetComments(bookID) {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    const requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+        redirect: "follow"
+    };
+    const data = fetch(`${BASE_URL}/comments/${bookID}`, requestOptions)
+        .then(response => response.json())
+        .catch(error => console.log('error', error));
+    return data;
+}
+
+export async function PostComment(userID, bookID, text) {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    const raw = JSON.stringify({
+        "user_id": `${userID}`,
+        "book_id": `${bookID}`,
+        "text": `${text}`
+    });
+    const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow"
+    };
+    const data = fetch(`${BASE_URL}/comments`, requestOptions)
+        .then(response => response.json())
+        .catch(error => console.log('error', error));
+    return data;
+}

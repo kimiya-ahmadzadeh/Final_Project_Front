@@ -4,6 +4,7 @@ import { useState } from "react";
 import { GetBook, GetBookGenres, GetLists, GetUserID, PostBooks } from "./fetch_data";
 import { useEffect } from "react";
 import { Autocomplete, Button, TextField } from "@mui/material";
+import { Comments } from "./comments";
 
 export function Book() {
     const { id } = useParams();
@@ -44,6 +45,10 @@ export function Book() {
         }
     }
 
+    const shwAuthor = async (author) => {
+
+    }
+
     useEffect(() => {
         loadPage();
     }, []);
@@ -56,7 +61,7 @@ export function Book() {
                     <div className="book-cover">COVER</div>
                     <div className="top-info">
                         <div className="book-title">{book.title}</div>
-                        <div className="book-author">{book.author}</div>
+                        <div className="book-author" onClick={() => showAuthor(book.author)}>{book.author}</div>
                     </div>
                     <div className="book-btns">
                         <div><Button variant="outlined" onClick={() => addToDefault('Bookmarked Books')}>Bookmark</Button></div>
@@ -95,6 +100,8 @@ export function Book() {
                         </div>
                     </div>
                 </div>
+                <Button variant="outlined" onClick={() => { navigate(`/book/read/${id}`) }}>READ</Button>
+                <Comments bookID={id} />
             </div>
         </div>
     );
