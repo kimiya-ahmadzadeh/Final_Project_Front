@@ -261,3 +261,17 @@ export async function PostBooks(userID, listID, bookID, listName) {
     return data;
 }
 
+export async function GetBookGenres(bookID) {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    const requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+        redirect: "follow"
+    };
+    const data = fetch(`${BASE_URL}/book/genres/${bookID}`, requestOptions)
+        .then(response => response.json())
+        .catch(error => console.log('error', error));
+    return data;
+}
+

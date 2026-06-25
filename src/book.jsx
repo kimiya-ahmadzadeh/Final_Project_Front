@@ -1,7 +1,7 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Header } from "./header";
 import { useState } from "react";
-import { GetBook, GetLists, GetUserID, PostBooks } from "./fetch_data";
+import { GetBook, GetBookGenres, GetLists, GetUserID, PostBooks } from "./fetch_data";
 import { useEffect } from "react";
 import { Autocomplete, Button, TextField } from "@mui/material";
 
@@ -10,10 +10,13 @@ export function Book() {
     const userID = GetUserID();
     const [book, setBook] = useState({});
     const [lists, setLists] = useState([]);
+    const [genres, setGenres] = useState([]);
     const [selected, setSelected] = useState("");
+    const navigate = useNavigate();
 
     const loadPage = async () => {
         const loadedBook = await GetBook(id);
+        const loadedGenres = await GetBookGenres(id);
         const loadedLists = await GetLists(userID);
         let listOpt = [];
         loadedLists?.forEach((l) => {
@@ -22,6 +25,7 @@ export function Book() {
             }
         });
         setBook(loadedBook);
+        setGenres(loadedGenres);
         setLists(listOpt);
     }
 
@@ -70,6 +74,13 @@ export function Book() {
                     </div>
                     <div className="side-info">
                         <div className="summary">{book.summary}</div>
+                        <div className="genres-list">
+                            {genres.map((g) => {
+                                return (
+                                    <div key={g.id} className="genre-chip" onClick={() => navigate(`/genres/${g.id}`)}>{g.name}</div>
+                                );
+                            })}
+                        </div>
                         <div className="info-row">
                             <div className="row-title">Year</div>
                             <div className="row-value">{book.year}</div>
