@@ -4,7 +4,6 @@ import { GetGenres, GetLangs, Search, SearchGenre } from "./fetch_data";
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { SearchResults } from './search_result';
 import { Loading } from './loading';
 import { Header } from './header';
 import { PaginateBooks } from './paginated_books';

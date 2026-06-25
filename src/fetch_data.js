@@ -71,13 +71,14 @@ export async function EditList(listID, name, desc) {
     return data;
 }
 
-export async function PostList(userID, name, desc) {
+export async function PostList(userID, name, desc, created) {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     const raw = JSON.stringify({
         "name": `${name}`,
         "description": `${desc}`,
-        "user_id": `${userID}`
+        "user_id": `${userID}`,
+        "created": `${created}`
     });
     const requestOptions = {
         method: "POST",
@@ -223,4 +224,40 @@ export async function SearchGenre(genreID, bookID) {
         .then(response => response.json())
         .catch(error => console.log('error', error));
     return data;
-} 
+}
+
+export async function GetBook(bookID) {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    const requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+        redirect: "follow"
+    };
+    const data = fetch(`${BASE_URL}/books/${bookID}`, requestOptions)
+        .then(response => response.json())
+        .catch(error => console.log('error', error));
+    return data;
+}
+
+export async function PostBooks(userID, listID, bookID, listName) {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    const raw = JSON.stringify({
+        "bookID": `${bookID}`,
+        "listID": `${listID}`,
+        "listName": `${listName}`,
+        "userID": `${userID}`
+    });
+    const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow"
+    };
+    const data = fetch(`${BASE_URL}/lists`, requestOptions)
+        .then(response => response.json())
+        .catch(error => console.log('error', error));
+    return data;
+}
+
