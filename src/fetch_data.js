@@ -13,7 +13,7 @@ export async function GetLists(userID) {
         headers: myHeaders,
         redirect: "follow"
     };
-    const data = fetch(`${BASE_URL}/users/${userID}/lists`, requestOptions)
+    const data = fetch(`${BASE_URL}/users/lists/${userID}`, requestOptions)
         .then(response => response.json())
         .catch(error => console.log('error', error));
     return data;
@@ -178,7 +178,7 @@ export async function GetGenreBooks(genreID) {
         headers: myHeaders,
         redirect: "follow"
     };
-    const data = fetch(`${BASE_URL}/${genreID}/books`, requestOptions)
+    const data = fetch(`${BASE_URL}/books/genre/${genreID}`, requestOptions)
         .then(response => response.json())
         .catch(error => console.log('error', error));
     return data;
