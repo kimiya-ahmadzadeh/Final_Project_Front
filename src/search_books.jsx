@@ -1,6 +1,6 @@
 import { Button, Modal, TextField, Autocomplete, InputLabel, Select, } from '@mui/material';
 import '../styles/search_modal.css';
-import { GetGenres, GetLangs, Search, SearchGenre } from "./fetch_data";
+import { get } from "./fetch_data";
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -26,12 +26,12 @@ export function SearchBooks() {
     const [books, setBooks] = useState([]);
 
     const loadOptions = async () => {
-        const genreObj = await GetGenres();
+        const genreObj = await get(`genres`);
         let genres = [];
         genreObj.forEach(g => {
             genres.push({ label: g.name, id: g.id });
         });
-        const langObj = await GetLangs();
+        const langObj = await get(`languages`);
         let langs = [];
         langObj.forEach(g => {
             langs.push({ label: g.language });
@@ -45,8 +45,10 @@ export function SearchBooks() {
     }, [books]);
 
     const searchBook = async () => {
-        let books = await Search();
-        books = books.filter((b) => b.title.includes(title) && b.author.includes(author) && b.year >= fromYear && b.year <= toYear);
+        let books = await get(`books`);
+        books = books.filter((b) => b.title.toLowerCase().includes(title.toLowerCase())
+            && b.author.toLowerCase().includes(author.toLowerCase())
+            && b.year >= fromYear && b.year <= toYear);
         if (langs.length > 0) {
             let filterLang = [];
             books.forEach((b) => {
@@ -74,7 +76,7 @@ export function SearchBooks() {
             let filteredBooks = [];
             genres.forEach((g) => {
                 books.forEach(async (b) => {
-                    const validate = await SearchGenre(g.id, b.id);
+                    const validate = await get(`genres/${g.id}/${b.id}`);
                     if (validate) {
                         filteredBooks.push(b);
                     }

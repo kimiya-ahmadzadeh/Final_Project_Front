@@ -10,6 +10,7 @@ import { LoginPage } from './login.jsx';
 import { Genre } from './genre.jsx';
 import { SearchBooks } from './search_books.jsx';
 import { ReadBook } from './reading_page.jsx';
+import { AuthorsPage } from './authors_page.jsx';
 
 const router = createBrowserRouter([
   { path: "/", element: <HomePage /> },
@@ -19,7 +20,8 @@ const router = createBrowserRouter([
   { path: "/book/:id", element: <Book /> },
   { path: "/login", element: <LoginPage /> },
   { path: "/genres/:id", element: <Genre /> },
-  { path: "/book/read/:id", element: <ReadBook /> }
+  { path: "/book/read/:id", element: <ReadBook /> },
+  { path: "/author/:name", element: <AuthorsPage /> }
 ]);
 
 createRoot(document.getElementById('root')).render(

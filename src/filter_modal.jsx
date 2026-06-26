@@ -1,5 +1,5 @@
 import { Autocomplete, InputLabel, Select, TextField } from "@mui/material";
-import { GetGenres, GetLangs } from "./fetch_data";
+import { get } from "./fetch_data";
 import { useEffect, useState } from "react";
 
 
@@ -10,12 +10,12 @@ export function FilterModal() {
     const [langOpt, setLangOpt] = useState([]);
 
     const loadOptions = async () => {
-        const genreObj = await GetGenres();
+        const genreObj = await get(`genres`);
         let genres = [];
         genreObj.forEach(g => {
             genres.push({ lable: g.name, id: g.id });
         });
-        const langObj = await GetLangs();
+        const langObj = await get(`languages`);
         let langs = [];
         langObj.forEach(g => {
             langs.push({ lable: g.language });

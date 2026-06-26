@@ -3,7 +3,7 @@ import "../styles/books_list.css"
 import { PaginateBooks } from "./paginated_books";
 import { Button, Modal, TextField } from "@mui/material";
 import { Loading } from "./loading";
-import { DeleteList, EditList, GetListBooks } from "./fetch_data";
+import { deleting, get, put } from "./fetch_data";
 
 export function BooksList(props) {
 
@@ -13,20 +13,21 @@ export function BooksList(props) {
     const [listDesc, setListDesc] = useState("");
 
     const loadBooks = async () => {
-        const loadedBooks = await GetListBooks(props.list.id);
+        const loadedBooks = await get(`lists/${props.list.id}`);
         setListName(props.list.name);
         setListDesc(props.list.description);
         setBooks(loadedBooks);
     }
 
     const editList = async () => {
-        const changedList = await EditList(props.list.id, listName, listDesc);
+        const body = { name: listName, description: listDesc, listID: props.list.id };
+        const changedList = await put(`users/lists`, body);
         props.changeList();
         setOpen(false);
     }
 
     const deleteList = async () => {
-        const deletedList = await DeleteList(props.list.id);
+        const deletedList = await deleting(`users/lists/${props.list.id}`);
         props.changeList(true);
     }
 

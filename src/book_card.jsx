@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom"
 import "../styles/book_card.css"
-import { DeleteListBook, GetUserID, PostBooks } from "./fetch_data";
+import { deleting, GetUserID, post } from "./fetch_data";
 import { Button } from "@mui/material";
 
 export function BookCard(props) {
@@ -9,11 +9,12 @@ export function BookCard(props) {
 
     const handleClick = async (id) => {
         navigate(`/book/${id}`);
-        const post = await PostBooks(userID, null, id, "Recent Books");
+        const body = { bookID: id, listID: null, listName: "Recent Books", userID };
+        const postBook = await post(`lists`, body);
     }
 
     const deleteBook = async (listID, bookID) => {
-        const deleted = await DeleteListBook(listID, bookID);
+        const deleted = await deleting(`lists/${listID}/${bookID}`);
         props.changeList(false);
     }
 

@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { Header } from "./header";
 import { useState } from "react";
-import { GetBook, GetBookGenres, GetLists, GetUserID, PostBooks } from "./fetch_data";
+import { get, GetUserID, post } from "./fetch_data";
 import { useEffect } from "react";
 import { Autocomplete, Button, TextField } from "@mui/material";
 import { Comments } from "./comments";
@@ -16,9 +16,9 @@ export function Book() {
     const navigate = useNavigate();
 
     const loadPage = async () => {
-        const loadedBook = await GetBook(id);
-        const loadedGenres = await GetBookGenres(id);
-        const loadedLists = await GetLists(userID);
+        const loadedBook = await get(`books/${id}`);
+        const loadedGenres = await get(`book/genres/${id}`);
+        const loadedLists = await get(`users/lists/${userID}`);
         let listOpt = [];
         loadedLists?.forEach((l) => {
             if (l.created) {
@@ -31,22 +31,24 @@ export function Book() {
     }
 
     const addToDefault = async (listName) => {
-        const post = await PostBooks(userID, null, id, listName);
-        if (!post) {
+        const body = { bookID: id, listID: null, listName, userID };
+        const posted = await post(`lists`, body);
+        if (!posted) {
             window.alert("can't add twice");
         }
     }
 
     const postBook = async (listID) => {
         if (selected != "") {
-            const inserted = await PostBooks(userID, listID, id, "");
+            const body = { bookID: id, listID, listName: "", userID };
+            const inserted = await post(`lists`, body);
         } else {
             window.alert("choose a list first.")
         }
     }
 
-    const shwAuthor = async (author) => {
-
+    const showAuthor = async (author) => {
+        navigate(`/author/${author}`);
     }
 
     useEffect(() => {

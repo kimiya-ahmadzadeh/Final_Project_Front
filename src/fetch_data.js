@@ -5,7 +5,7 @@ export function GetUserID() {
     return user.id;
 }
 
-export async function GetLists(userID) {
+export async function get(path) {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     const requestOptions = {
@@ -13,86 +13,45 @@ export async function GetLists(userID) {
         headers: myHeaders,
         redirect: "follow"
     };
-    const data = fetch(`${BASE_URL}/users/lists/${userID}`, requestOptions)
+    const data = fetch(`${BASE_URL}/${path}`, requestOptions)
         .then(response => response.json())
         .catch(error => console.log('error', error));
     return data;
 }
 
-export async function GetListBooks(listID) {
+export async function post(path, body) {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    const requestOptions = {
-        method: "GET",
-        headers: myHeaders,
-        redirect: "follow"
-    };
-    const data = fetch(`${BASE_URL}/lists/${listID}`, requestOptions)
-        .then(response => response.json())
-        .catch(error => console.log('error', error));
-    return data;
-}
-
-export async function VerifyLogin(username, password) {
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    const raw = JSON.stringify({
-        "username": `${username}`,
-        "password": `${password}`
-    });
+    const raw = JSON.stringify(body);
     const requestOptions = {
         method: "POST",
         headers: myHeaders,
         body: raw,
         redirect: "follow"
     };
-    const data = fetch(`${BASE_URL}/login`, requestOptions)
+    const data = fetch(`${BASE_URL}/${path}`, requestOptions)
         .then(response => response.json())
         .catch(error => console.log('error', error));
     return data;
 }
 
-export async function EditList(listID, name, desc) {
+export async function put(path, body) {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    const raw = JSON.stringify({
-        "name": `${name}`,
-        "description": `${desc}`
-    });
+    const raw = JSON.stringify(body);
     const requestOptions = {
         method: "PUT",
         headers: myHeaders,
         body: raw,
         redirect: "follow"
     };
-    const data = fetch(`${BASE_URL}/users/lists/${listID}`, requestOptions)
+    const data = fetch(`${BASE_URL}/${path}`, requestOptions)
         .then(response => response.json())
         .catch(error => console.log('error', error));
     return data;
 }
 
-export async function PostList(userID, name, desc, created) {
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    const raw = JSON.stringify({
-        "name": `${name}`,
-        "description": `${desc}`,
-        "user_id": `${userID}`,
-        "created": `${created}`
-    });
-    const requestOptions = {
-        method: "POST",
-        headers: myHeaders,
-        body: raw,
-        redirect: "follow"
-    };
-    const data = fetch(`${BASE_URL}/users/lists`, requestOptions)
-        .then(response => response.json())
-        .catch(error => console.log('error', error));
-    return data;
-}
-
-export async function DeleteList(listID) {
+export async function deleting(path) {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     const requestOptions = {
@@ -100,224 +59,7 @@ export async function DeleteList(listID) {
         headers: myHeaders,
         redirect: "follow"
     };
-    const data = fetch(`${BASE_URL}/users/lists/${listID}`, requestOptions)
-        .then(response => response.json())
-        .catch(error => console.log('error', error));
-    return data;
-}
-
-export async function GetUserInfo(userID) {
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    const requestOptions = {
-        method: "GET",
-        headers: myHeaders,
-        redirect: "follow"
-    };
-    const data = fetch(`${BASE_URL}/users/${userID}`, requestOptions)
-        .then(response => response.json())
-        .catch(error => console.log('error', error));
-    return data;
-}
-
-export async function EditUser(userID, firstName, lastName, bio, username, password) {
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    const raw = JSON.stringify({
-        "first_name": `${firstName}`,
-        "last_name": `${lastName}`,
-        "bio": `${bio}`,
-        "username": `${username}`,
-        "password": `${password}`
-    });
-    const requestOptions = {
-        method: "PUT",
-        headers: myHeaders,
-        body: raw,
-        redirect: "follow"
-    };
-    const data = fetch(`${BASE_URL}/users/${userID}`, requestOptions)
-        .then(response => response.json())
-        .catch(error => console.log('error', error));
-    return data;
-}
-
-export async function GetGenres() {
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    const requestOptions = {
-        method: "GET",
-        headers: myHeaders,
-        redirect: "follow"
-    };
-    const data = fetch(`${BASE_URL}/genres`, requestOptions)
-        .then(response => response.json())
-        .catch(error => console.log('error', error));
-    return data;
-}
-
-export async function GetLangs() {
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    const requestOptions = {
-        method: "GET",
-        headers: myHeaders,
-        redirect: "follow"
-    };
-    const data = fetch(`${BASE_URL}/languages`, requestOptions)
-        .then(response => response.json())
-        .catch(error => console.log('error', error));
-    return data;
-}
-
-export async function GetGenreBooks(genreID) {
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    const requestOptions = {
-        method: "GET",
-        headers: myHeaders,
-        redirect: "follow"
-    };
-    const data = fetch(`${BASE_URL}/books/genre/${genreID}`, requestOptions)
-        .then(response => response.json())
-        .catch(error => console.log('error', error));
-    return data;
-}
-
-export async function GetGenre(genreID) {
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    const requestOptions = {
-        method: "GET",
-        headers: myHeaders,
-        redirect: "follow"
-    };
-    const data = fetch(`${BASE_URL}/genres/${genreID}`, requestOptions)
-        .then(response => response.json())
-        .catch(error => console.log('error', error));
-    return data;
-}
-
-export async function Search() {
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    const requestOptions = {
-        method: "GET",
-        headers: myHeaders,
-        redirect: "follow"
-    };
-    const data = fetch(`${BASE_URL}/books`, requestOptions)
-        .then(response => response.json())
-        .catch(error => console.log('error', error));
-    return data;
-}
-
-export async function SearchGenre(genreID, bookID) {
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    const requestOptions = {
-        method: "GET",
-        headers: myHeaders,
-        redirect: "follow"
-    };
-    const data = fetch(`${BASE_URL}/genres/${genreID}/${bookID}`, requestOptions)
-        .then(response => response.json())
-        .catch(error => console.log('error', error));
-    return data;
-}
-
-export async function GetBook(bookID) {
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    const requestOptions = {
-        method: "GET",
-        headers: myHeaders,
-        redirect: "follow"
-    };
-    const data = fetch(`${BASE_URL}/books/${bookID}`, requestOptions)
-        .then(response => response.json())
-        .catch(error => console.log('error', error));
-    return data;
-}
-
-export async function PostBooks(userID, listID, bookID, listName) {
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    const raw = JSON.stringify({
-        "bookID": `${bookID}`,
-        "listID": `${listID}`,
-        "listName": `${listName}`,
-        "userID": `${userID}`
-    });
-    const requestOptions = {
-        method: "POST",
-        headers: myHeaders,
-        body: raw,
-        redirect: "follow"
-    };
-    const data = fetch(`${BASE_URL}/lists`, requestOptions)
-        .then(response => response.json())
-        .catch(error => console.log('error', error));
-    return data;
-}
-
-export async function GetBookGenres(bookID) {
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    const requestOptions = {
-        method: "GET",
-        headers: myHeaders,
-        redirect: "follow"
-    };
-    const data = fetch(`${BASE_URL}/book/genres/${bookID}`, requestOptions)
-        .then(response => response.json())
-        .catch(error => console.log('error', error));
-    return data;
-}
-
-export async function DeleteListBook(listID, bookID) {
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    const requestOptions = {
-        method: "DELETE",
-        headers: myHeaders,
-        redirect: "follow"
-    };
-    const data = fetch(`${BASE_URL}/lists/${listID}/${bookID}`, requestOptions)
-        .then(response => response.json())
-        .catch(error => console.log('error', error));
-    return data;
-}
-
-export async function GetComments(bookID) {
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    const requestOptions = {
-        method: "GET",
-        headers: myHeaders,
-        redirect: "follow"
-    };
-    const data = fetch(`${BASE_URL}/comments/${bookID}`, requestOptions)
-        .then(response => response.json())
-        .catch(error => console.log('error', error));
-    return data;
-}
-
-export async function PostComment(userID, bookID, text) {
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    const raw = JSON.stringify({
-        "user_id": `${userID}`,
-        "book_id": `${bookID}`,
-        "text": `${text}`
-    });
-    const requestOptions = {
-        method: "POST",
-        headers: myHeaders,
-        body: raw,
-        redirect: "follow"
-    };
-    const data = fetch(`${BASE_URL}/comments`, requestOptions)
+    const data = fetch(`${BASE_URL}/${path}`, requestOptions)
         .then(response => response.json())
         .catch(error => console.log('error', error));
     return data;

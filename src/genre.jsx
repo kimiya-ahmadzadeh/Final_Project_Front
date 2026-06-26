@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { Header } from "./header";
 import { useState } from "react";
-import { GetGenre, GetGenreBooks } from "./fetch_data";
+import { get } from "./fetch_data";
 import { useEffect } from "react";
 import { PaginateBooks } from "./paginated_books";
 import { Loading } from "./loading";
@@ -13,8 +13,8 @@ export function Genre() {
     const [books, setBooks] = useState([]);
 
     const loadPage = async () => {
-        const loadedGenre = await GetGenre(id);
-        const loadedBooks = await GetGenreBooks(id);
+        const loadedGenre = await get(`genres/${id}`);
+        const loadedBooks = await get(`books/genre/${id}`);
         setGenre(loadedGenre);
         setBooks(loadedBooks);
     }

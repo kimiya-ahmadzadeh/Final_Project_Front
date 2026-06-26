@@ -4,7 +4,7 @@ import { Header } from "./header";
 import { BooksList } from "./books_list";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { GetLists, GetUserID, PostList } from "./fetch_data";
+import { get, GetUserID, post } from "./fetch_data";
 import { Loading } from "./loading";
 
 export function Library(props) {
@@ -18,7 +18,7 @@ export function Library(props) {
     const userID = GetUserID();
 
     const loadLists = async () => {
-        const loadedLists = await GetLists(userID);
+        const loadedLists = await get(`users/lists/${userID}`);
         setList(loadedLists);
     }
 
@@ -33,7 +33,8 @@ export function Library(props) {
 
     const addList = async () => {
         if (listName.length > 0) {
-            const add = await PostList(userID, listName, listDesc, true);
+            const body = { name: listName, description: listDesc, user_id: userID, created: true }
+            const add = await post(`users/lists`, body);
             setChangeList(changeList + 1);
             setOpen(false);
         } else {

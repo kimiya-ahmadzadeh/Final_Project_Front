@@ -2,7 +2,7 @@ import { Alert, Button, TextField } from "@mui/material";
 import "../styles/login.css";
 import { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
-import { VerifyLogin } from "./fetch_data";
+import { post } from "./fetch_data";
 
 export function LoginPage() {
 
@@ -19,7 +19,8 @@ export function LoginPage() {
     }, []);
 
     const login = async () => {
-        const response = await VerifyLogin(username, password);
+        const body = { username, password }
+        const response = await post(`login`, body);
         if (!response.error) {
             localStorage.setItem("userAuth", JSON.stringify(response.user));
             navigate("/");

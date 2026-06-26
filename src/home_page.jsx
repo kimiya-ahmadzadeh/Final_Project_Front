@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../styles/home_page.css";
 import { BookRows } from "./book_row";
-import { GetGenres, GetUserID } from "./fetch_data";
+import { get, GetUserID } from "./fetch_data";
 import { Header } from "./header";
 import { useEffect } from "react";
 import { Loading } from "./loading";
@@ -16,7 +16,7 @@ export function HomePage() {
     const [genres, setGenres] = useState([]);
 
     const loadGenres = async () => {
-        const loadedGenres = await GetGenres();
+        const loadedGenres = await get(`genres`);
         setGenres(loadedGenres);
     }
 

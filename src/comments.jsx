@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { GetComments, GetUserID, PostComment } from "./fetch_data";
+import { get, GetUserID, post } from "./fetch_data";
 import "../styles/comments.css";
 import { Button, TextField } from "@mui/material";
 
@@ -7,20 +7,24 @@ export function Comments(props) {
 
     const [comments, setComments] = useState([]);
     const [userComment, setUserComment] = useState("");
+    const [renderComments, setLoadComment] = useState(0);
     const userID = GetUserID();
 
     const loadComments = async () => {
-        const loadedComments = await GetComments(props.bookID);
+        const loadedComments = await get(`comments/${props.bookID}`);
         setComments(loadedComments);
     }
 
     const postComment = async (text) => {
-        const posted = await PostComment(userID, props.bookID, text);
+        const body = { user_id: userID, book_id: props.bookID, text };
+        const posted = await post(`comments`, body);
+        setUserComment("");
+        setLoadComment(renderComments + 1);
     }
 
     useEffect(() => {
         loadComments();
-    }, []);
+    }, [renderComments]);
 
     return (
         <div className="comment-section">
@@ -36,7 +40,7 @@ export function Comments(props) {
                 })}
             </div>
             <div className="post-comment">
-                <TextField placeholder="Write a comment..." onChange={(e) => setUserComment(e.target.value)} />
+                <TextField placeholder="Write a comment..." onChange={(e) => setUserComment(e.target.value)} value={userComment} />
                 <Button variant="outlined" onClick={() => postComment(userComment)}>Post</Button>
             </div>
         </div>

@@ -3,13 +3,12 @@ import { Button, TextField } from "@mui/material";
 import { Header } from "./header";
 import { useEffect } from "react";
 import { useState } from "react";
-import { EditUser, GetUserID, GetUserInfo } from "./fetch_data";
+import { get, GetUserID, put } from "./fetch_data";
 import { Loading } from "./loading";
 
 export function Profile() {
 
     const [user, setUser] = useState();
-    // const [changeUser, setChangeUser] = useState(0);
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [bio, setBio] = useState("");
@@ -18,7 +17,7 @@ export function Profile() {
     const userID = GetUserID();
 
     const loadUser = async () => {
-        const loadedUser = await GetUserInfo(userID);
+        const loadedUser = await get(`users/${userID}`);
         setUser(loadedUser);
         setFirstName(loadedUser.first_name);
         setLastName(loadedUser.last_name);
@@ -29,8 +28,8 @@ export function Profile() {
 
     const editUser = async () => {
         if (firstName.length > 0 && lastName.length > 0 && username.length > 0 && password.length > 0) {
-            const editedUser = await EditUser(userID, firstName, lastName, bio, username, password);
-            // setChangeUser(changeUser + 1);
+            const body = { id: userID, first_name: firstName, last_name: lastName, bio, username, password };
+            const editedUser = await put(`users`, body);
         }
         else {
             window.alert("Fill the required fields.")
