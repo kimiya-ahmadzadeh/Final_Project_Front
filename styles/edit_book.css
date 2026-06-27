@@ -1,0 +1,14 @@
+.edit-book {
+    background-color: aliceblue;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 50px;
+    width: 80%;
+}
+
+.book-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}

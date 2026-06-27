@@ -12,7 +12,7 @@ export function Library(props) {
     const [tab, setTab] = useState(0);
     const [lists, setList] = useState([]);
     const [open, setOpen] = useState(0);
-    const [changeList, setChangeList] = useState(false);
+    const [changeList, setChangeList] = useState(0);
     const [listName, setListName] = useState("");
     const [listDesc, setListDesc] = useState("");
     const userID = GetUserID();
@@ -56,7 +56,7 @@ export function Library(props) {
                     </Tabs>
                     <Button onClick={() => setOpen(true)}>Add List</Button>
                 </div>
-                <BooksList list={lists[tab]} userID={userID} changeList={handleChange} visibility={"visible"} />
+                <BooksList list={lists[tab]} userID={userID} changePage={handleChange} visibility={"visible"} />
             </div>
             <Modal open={open} onClose={() => setOpen(false)}>
                 <div className="list-modal">

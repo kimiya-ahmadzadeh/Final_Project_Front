@@ -19,6 +19,10 @@ export function Genre() {
         setBooks(loadedBooks);
     }
 
+    const handleChange = () => {
+        setChangePage(changePage + 1);
+    }
+
     useEffect(() => {
         loadPage();
     }, []);

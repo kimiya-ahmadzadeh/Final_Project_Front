@@ -45,10 +45,12 @@ export function BooksList(props) {
                                 <div className="list-name">{props.list.name}</div>
                                 <div className="list-desc">{props.list.description}</div>
                             </div>
-                            <div className="edit-list-btn"><Button variant="outlined" onClick={() => setOpen(true)}>Edit List</Button></div>
-                            <div className="delete-list-btn"><Button variant="outlined" onClick={() => deleteList()}>Delete List</Button></div>
+                            <div className="list-btns" style={{ visibility: props.list.created ? "visible" : "hidden" }}>
+                                <div className="edit-list-btn"><Button variant="outlined" onClick={() => setOpen(true)}>Edit List</Button></div>
+                                <div className="delete-list-btn"><Button variant="outlined" onClick={() => deleteList()}>Delete List</Button></div>
+                            </div>
                         </div>
-                        <PaginateBooks books={books} listID={props.list.id} visibility={props.visibility} changeList={props.changeList} />
+                        <PaginateBooks books={books} listID={props.list.id} visibility={props.visibility} changePage={props.changePage} />
                         <Modal open={open} onClose={() => setOpen(false)} className="edit-list-modal">
                             <div className="modal-list">
                                 <TextField variant="outlined" label="List Name" value={listName} onChange={(e) => setListName(e.target.value)} />

@@ -26,6 +26,8 @@ export function SearchBooks() {
     const [books, setBooks] = useState([]);
 
     const loadOptions = async () => {
+        const books = await get(`books`);
+        setBooks(books);
         const genreObj = await get(`genres`);
         let genres = [];
         genreObj.forEach(g => {
@@ -40,52 +42,55 @@ export function SearchBooks() {
         setLangOpt(langs);
     }
 
+    const handleChange = () => {
+        setChangePage(changePage + 1);
+    }
+
     useEffect(() => {
         loadOptions();
-    }, [books]);
+    }, []);
 
     const searchBook = async () => {
-        let books = await get(`books`);
-        books = books.filter((b) => b.title.toLowerCase().includes(title.toLowerCase())
+        let newBooks = books;
+        newBooks = books.filter((b) => b.title.toLowerCase().includes(title.toLowerCase())
             && b.author.toLowerCase().includes(author.toLowerCase())
             && b.year >= fromYear && b.year <= toYear);
         if (langs.length > 0) {
             let filterLang = [];
-            books.forEach((b) => {
+            newBooks.forEach((b) => {
                 langs.forEach((l) => {
                     if (b.language.includes(l.label)) {
                         filterLang.push(b);
                     }
                 });
             });
-            books = filterLang;
+            newBooks = filterLang;
         }
         if (pages === "pages <= 100") {
-            books = books.filter((b) => b.pages <= 100);
+            newBooks = newBooks.filter((b) => b.pages <= 100);
         }
         if (pages === "100 < pages <= 300") {
-            books = books.filter((b) => b.pages > 100 && b.pages <= 300);
+            newBooks = newBooks.filter((b) => b.pages > 100 && b.pages <= 300);
         }
         if (pages === "300 < pages <= 500") {
-            books = books.filter((b) => b.pages > 300 && b.pages <= 500);
+            newBooks = newBooks.filter((b) => b.pages > 300 && b.pages <= 500);
         }
         if (pages === "pages > 500") {
-            books = books.filter((b) => b.pages > 500);
+            newBooks = newBooks.filter((b) => b.pages > 500);
         }
         if (genres.length > 0) {
             let filteredBooks = [];
             genres.forEach((g) => {
-                books.forEach(async (b) => {
+                newBooks.forEach(async (b) => {
                     const validate = await get(`genres/${g.id}/${b.id}`);
                     if (validate) {
                         filteredBooks.push(b);
                     }
                 });
             });
-            books = filteredBooks;
+            newBooks = filteredBooks;
         }
-        console.log(books);
-        setBooks(books);
+        setBooks(newBooks);
     }
 
 
