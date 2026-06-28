@@ -11,6 +11,7 @@ export function AdminPage() {
     const tabLabel = ["Books", "Genres", "Lists"];
     const [tab, setTab] = useState(0);
     const [items, setItems] = useState([]);
+    const [books, setBooks] = useState([]);
     const [change, setChange] = useState(0);
     const adminID = GetUserID();
 
@@ -18,6 +19,11 @@ export function AdminPage() {
         if (tab == 0) {
             const loadedBooks = await get(`books`);
             setItems(loadedBooks);
+            let bookOpt = [];
+            loadedBooks.forEach((b) => {
+                bookOpt.push({ id: b.id, label: b.title });
+            });
+            setBooks(bookOpt);
         }
         else if (tab == 1) {
             const loadedGenres = await get(`genres`);
@@ -49,7 +55,7 @@ export function AdminPage() {
                     })}
                 </Tabs>
             </div>
-            <AdminContent type={tabLabel[tab]} items={items} changePage={handleChange} />
+            <AdminContent type={tabLabel[tab]} items={items} books={books} changePage={handleChange} />
         </div>
     );
 }

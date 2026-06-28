@@ -28,7 +28,7 @@ export function HomePage() {
                         return (
                             <BookRows genre={g} />
                         );
-                    })};
+                    })}
                 </div>
             }
         </>

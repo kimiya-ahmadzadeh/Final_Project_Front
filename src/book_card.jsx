@@ -10,6 +10,8 @@ export function BookCard(props) {
     const userID = GetUserID();
     const [edit, setEdit] = useState(false);
     const [book, setBook] = useState({});
+    const [bookGenres, setBookGenres] = useState([]);
+    const [genres, setGenres] = useState([]);
 
     const handleClick = async (id) => {
         navigate(`/book/${id}`);
@@ -29,7 +31,17 @@ export function BookCard(props) {
 
     const editBook = async (bookID) => {
         const loaded = await get(`books/${bookID}`);
+        const bookGenres = await get(`book/genres/${bookID}`);
+        const allGenres = await get(`genres`);
         setBook(loaded);
+        let genreIDs = [];
+        bookGenres.forEach((g) => genreIDs.push(g.id));
+        setBookGenres(genreIDs);
+        let genresOpt = [];
+        allGenres.forEach((g) => {
+            genresOpt.push({ id: g.id, label: g.name });
+        });
+        setGenres(genresOpt);
         setEdit(true);
     }
 
@@ -50,7 +62,7 @@ export function BookCard(props) {
             {props.source == "admin" ? <Button onClick={() => editBook(props.book.id)} >Edit</Button> : null}
             {props.source == "admin" ? <Button onClick={() => deleteBook(props.book.id)}>Delete</Button> : null}
             <Modal open={edit} onClose={() => setEdit(false)}>
-                <EditBook book={book} close={() => closeEdit()} />
+                <EditBook book={book} bookGenres={bookGenres} genres={genres} close={() => closeEdit()} />
             </Modal>
         </div>
     );

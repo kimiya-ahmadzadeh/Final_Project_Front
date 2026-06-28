@@ -1,11 +1,12 @@
-import { Button, Modal, Pagination, TextField } from "@mui/material";
+import { Autocomplete, Button, Modal, Pagination, TextField } from "@mui/material";
 import { useState } from "react";
-import { deleting, get, GetUserID, put } from "./fetch_data";
+import { deleting, get, GetUserID, post, put } from "./fetch_data";
 
 export function PaginateArray(props) {
 
     const [open, setOpen] = useState(false);
     const [editedItem, setEditedItem] = useState({});
+    const [selectedBooks, setSelectedBooks] = useState([]);
     const [page, setPage] = useState(1);
     const perPage = 8;
     const pageCount = Math.ceil(props.items.length / perPage);
@@ -27,21 +28,39 @@ export function PaginateArray(props) {
     }
 
     const openEdit = async (id, type) => {
-        console.log(type);
         const selected = (type == "Genres") ? await get(`genres/${id}`)
             : await get(`users/list/${id}`);
         setEditedItem(selected[0]);
+        const books = (type == "Genres") ? await get(`books/genre/${id}`) :
+            await get(`lists/${id}`);
+        let booksOpt = [];
+        books.forEach((b) => {
+            booksOpt.push(b.id);
+        });
+        setSelectedBooks(booksOpt);
         setOpen(true);
     }
 
     const editCard = async (id, type) => {
         const body = (type == "Genres") ? { id: editedItem.id, name: editedItem.name } :
             { id: editedItem.id, name: editedItem.name, description: editedItem.description }
-        console.log(type);
         const edited = (type == "Genres") ? await put(`genres`, body) :
             await put(`users/lists`, body);
+        (type == "Genres") ? await deleting(`genre/${id}`) :
+            await deleting(`list/${id}`);
+        selectedBooks.forEach(async (b) => {
+            (type == "Genres") ?
+                await post(`genres/book`, { genreID: id, bookID: b }) :
+                await post(`lists`, { bookID: b, listID: id, listName: "", userID: adminID });
+        });
         setOpen(false);
         props.changePage();
+    }
+
+    const select = (value) => {
+        const bookIDs = [];
+        value.forEach((v) => { bookIDs.push(v.id) });
+        setSelectedBooks(bookIDs);
     }
 
     return (
@@ -73,6 +92,23 @@ export function PaginateArray(props) {
                         {props.type == "Lists" ? <TextField variant="outlined" label="description" defaultValue={editedItem.description}
                             onChange={(e) => setEditedItem({ id: editedItem.id, name: editedItem.name, description: e.target.value })} />
                             : null}
+                        <Autocomplete
+                            multiple
+                            limitTags={3}
+                            options={props.books}
+                            getOptionLabel={(option) => option.label}
+                            getOptionKey={(option) => option.id}
+                            defaultValue={props.books.filter((b) => selectedBooks.includes(b.id))}
+                            onChange={(event, value) => select(value)}
+                            renderInput={(params) => (
+                                <TextField
+                                    {...params}
+                                    variant="outlined"
+                                    label="Books"
+                                />
+                            )}
+                        >
+                        </Autocomplete>
                     </div>
                     <Button variant="outlined" onClick={() => editCard(editedItem.id, props.type)}>Save Changes</Button>
                 </div>

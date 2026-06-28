@@ -19,9 +19,11 @@ export function AdminContent(props) {
                     <Button variant="outlined">Add</Button>
                 </div>
                 <div>
-                    <PaginateArray type={props.type} items={props.items} changePage={props.changePage} />
+                    <PaginateArray type={props.type} items={props.items} books={props.books} changePage={props.changePage} />
                 </div>
             </div>}
         </div>
     );
 }
+
+// add books to genre and list, get options for each, default value and edit
