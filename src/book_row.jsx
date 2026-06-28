@@ -34,7 +34,7 @@ export function BookRows(props) {
             <div className="book-slide">
                 {books?.map((book) => {
                     return (
-                        <BookCard key={book.id} book={book} visibility={props.visibility} />
+                        <BookCard key={book.id} book={book} />
                     );
                 })}
             </div>

@@ -56,7 +56,7 @@ export function Library(props) {
                     </Tabs>
                     <Button onClick={() => setOpen(true)}>Add List</Button>
                 </div>
-                <BooksList list={lists[tab]} userID={userID} changePage={handleChange} visibility={"visible"} />
+                <BooksList list={lists[tab]} userID={userID} changePage={handleChange} source={"lib"} />
             </div>
             <Modal open={open} onClose={() => setOpen(false)}>
                 <div className="list-modal">

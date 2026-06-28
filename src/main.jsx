@@ -11,6 +11,7 @@ import { Genre } from './genre.jsx';
 import { SearchBooks } from './search_books.jsx';
 import { ReadBook } from './reading_page.jsx';
 import { AuthorsPage } from './authors_page.jsx';
+import { AdminPage } from './admin_page.jsx';
 
 const router = createBrowserRouter([
   { path: "/", element: <HomePage /> },
@@ -21,7 +22,8 @@ const router = createBrowserRouter([
   { path: "/login", element: <LoginPage /> },
   { path: "/genres/:id", element: <Genre /> },
   { path: "/book/read/:id", element: <ReadBook /> },
-  { path: "/author/:name", element: <AuthorsPage /> }
+  { path: "/author/:name", element: <AuthorsPage /> },
+  { path: "/admin", element: <AdminPage /> }
 ]);
 
 createRoot(document.getElementById('root')).render(

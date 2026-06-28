@@ -154,7 +154,7 @@ export function SearchBooks() {
                 </div>
             </div>
             <div className='search-results'>
-                <PaginateBooks books={books} visibility={"hidden"} />
+                <PaginateBooks books={books} />
             </div>
         </div>
     )

@@ -8,11 +8,8 @@ import { EditBook } from "./edit_book";
 export function BookCard(props) {
 
     const userID = GetUserID();
-    const [anchorEl, setAnchorEl] = useState(null);
-    const open = Boolean(anchorEl);
     const [edit, setEdit] = useState(false);
     const [book, setBook] = useState({});
-    const [changed, setChanged] = useState(0);
 
     const handleClick = async (id) => {
         navigate(`/book/${id}`);
@@ -27,11 +24,7 @@ export function BookCard(props) {
 
     const deleteBook = async (bookID) => {
         const deleted = await deleting(`books/${bookID}`);
-    }
-
-    const handleRightClick = (e) => {
-        e.preventDefault();
-        setAnchorEl(e.currentTarget);
+        props.changePage();
     }
 
     const editBook = async (bookID) => {
@@ -42,11 +35,7 @@ export function BookCard(props) {
 
     const closeEdit = () => {
         setEdit(false);
-        setChanged(changed + 1);
-    }
-
-    const handleClose = () => {
-        setAnchorEl(null);
+        props.changePage();
     }
 
     const navigate = useNavigate();
@@ -57,17 +46,11 @@ export function BookCard(props) {
                 <div className="book-card-title">{props.book.title}</div>
                 <div className="book-card-author">{props.book.author}</div>
             </div>
-            <Button style={{ visibility: props.visibility }} onClick={() => deleteBookFromList(props.listID, props.book.id)}>Delete</Button>
-            <Menu
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}>
-                <MenuItem onClick={() => handleClick(props.book.id)}>View</MenuItem>
-                <MenuItem onClick={() => editBook(props.book.id)}>Edit</MenuItem>
-                <MenuItem onClick={() => deleteBook(props.book.id)}>Delete</MenuItem>
-            </Menu>
+            {props.source == "lib" ? <Button onClick={() => deleteBookFromList(props.listID, props.book.id)}>Delete</Button> : null}
+            {props.source == "admin" ? <Button onClick={() => editBook(props.book.id)} >Edit</Button> : null}
+            {props.source == "admin" ? <Button onClick={() => deleteBook(props.book.id)}>Delete</Button> : null}
             <Modal open={edit} onClose={() => setEdit(false)}>
-                <EditBook book={book} close={closeEdit} />
+                <EditBook book={book} close={() => closeEdit()} />
             </Modal>
         </div>
     );

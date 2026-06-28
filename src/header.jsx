@@ -1,11 +1,10 @@
 import '../styles/header.css';
 import { Link, useNavigate } from "react-router-dom";
 import Button from '@mui/material/Button';
-import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 
-export function Header(props) {
-    const [openModal, setOpenModal] = useState("hidden");
+export function Header() {
+
     const navigate = useNavigate();
 
     const logout = () => {
@@ -13,13 +12,9 @@ export function Header(props) {
         navigate("/login");
     }
 
-    const closeModal = () => {
-        setOpenModal("hidden");
-    }
 
     return (
         <div className="main-header">
-            {/* <SearchModal open={openModal} closeModal={closeModal} /> */}
             <div className="header-content">
                 <h1>Book Worm</h1>
                 <Link to="/" >
@@ -33,6 +28,9 @@ export function Header(props) {
                 </Link>
                 <Link to="/profile">
                     <div><Button variant="outlined">My Profile</Button></div>
+                </Link>
+                <Link to="/admin" /*style={{ visibility: show }}*/ >
+                    <div><Button variant="outlined">Admin</Button></div>
                 </Link>
                 <div><Button variant="outlined" onClick={logout}>Log Out</Button></div>
             </div>
