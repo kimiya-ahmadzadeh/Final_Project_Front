@@ -62,7 +62,7 @@ export function BookCard(props) {
             {props.source == "admin" ? <Button onClick={() => editBook(props.book.id)} >Edit</Button> : null}
             {props.source == "admin" ? <Button onClick={() => deleteBook(props.book.id)}>Delete</Button> : null}
             <Modal open={edit} onClose={() => setEdit(false)}>
-                <EditBook book={book} bookGenres={bookGenres} genres={genres} close={() => closeEdit()} />
+                <EditBook book={book} bookGenres={bookGenres} genres={genres} type={true} close={() => closeEdit()} />
             </Modal>
         </div>
     );
