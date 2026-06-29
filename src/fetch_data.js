@@ -5,6 +5,11 @@ export function GetUserID() {
     return user.id;
 }
 
+export function GetAdmin() {
+    const user = JSON.parse(localStorage.getItem("userAuth"));
+    return user.admin;
+}
+
 export async function get(path) {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");

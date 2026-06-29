@@ -26,8 +26,6 @@ export function SearchBooks() {
     const [books, setBooks] = useState([]);
 
     const loadOptions = async () => {
-        const books = await get(`books`);
-        setBooks(books);
         const genreObj = await get(`genres`);
         let genres = [];
         genreObj.forEach(g => {
@@ -42,15 +40,17 @@ export function SearchBooks() {
         setLangOpt(langs);
     }
 
-    const handleChange = () => {
-        setChangePage(changePage + 1);
-    }
+    // const handleChange = () => {
+    //     setChangePage(changePage + 1);
+    // }
 
     useEffect(() => {
         loadOptions();
-    }, []);
+    }, [books]);
 
     const searchBook = async () => {
+        const books = await get(`books`);
+        setBooks(books);
         let newBooks = books;
         newBooks = books.filter((b) => b.title.toLowerCase().includes(title.toLowerCase())
             && b.author.toLowerCase().includes(author.toLowerCase())

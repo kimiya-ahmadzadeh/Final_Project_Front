@@ -2,16 +2,17 @@ import '../styles/header.css';
 import { Link, useNavigate } from "react-router-dom";
 import Button from '@mui/material/Button';
 import { Navigate } from 'react-router-dom';
+import { GetAdmin } from './fetch_data';
 
 export function Header() {
 
     const navigate = useNavigate();
+    const admin = GetAdmin();
 
     const logout = () => {
         localStorage.setItem("userAuth", JSON.stringify(""));
         navigate("/login");
     }
-
 
     return (
         <div className="main-header">
@@ -29,9 +30,9 @@ export function Header() {
                 <Link to="/profile">
                     <div><Button variant="outlined">My Profile</Button></div>
                 </Link>
-                <Link to="/admin" /*style={{ visibility: show }}*/ >
+                {admin ? <Link to="/admin">
                     <div><Button variant="outlined">Admin</Button></div>
-                </Link>
+                </Link> : null}
                 <div><Button variant="outlined" onClick={logout}>Log Out</Button></div>
             </div>
         </div>
