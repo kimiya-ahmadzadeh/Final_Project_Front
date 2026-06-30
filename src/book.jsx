@@ -48,7 +48,7 @@ export function Book() {
     }
 
     const showAuthor = async (author) => {
-        navigate(`/author/${author}`);
+        navigate(`/more/author/${author}`);
     }
 
     useEffect(() => {

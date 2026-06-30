@@ -7,10 +7,9 @@ import { Profile } from './profile.jsx';
 import { Library } from './library.jsx';
 import { Book } from './book.jsx';
 import { LoginPage } from './login.jsx';
-import { Genre } from './genre.jsx';
+import { Genre } from './more_books.jsx';
 import { SearchBooks } from './search_books.jsx';
 import { ReadBook } from './reading_page.jsx';
-import { AuthorsPage } from './authors_page.jsx';
 import { AdminPage } from './admin_page.jsx';
 
 const router = createBrowserRouter([
@@ -20,9 +19,8 @@ const router = createBrowserRouter([
   { path: "/profile", element: <Profile /> },
   { path: "/book/:id", element: <Book /> },
   { path: "/login", element: <LoginPage /> },
-  { path: "/genres/:id", element: <Genre /> },
+  { path: "/more/:name/:id", element: <Genre /> },
   { path: "/book/read/:id", element: <ReadBook /> },
-  { path: "/author/:name", element: <AuthorsPage /> },
   { path: "/admin", element: <AdminPage /> }
 ]);
 

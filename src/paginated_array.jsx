@@ -29,8 +29,8 @@ export function PaginateArray(props) {
 
     const openEdit = async (id, type) => {
         const selected = (type == "Genres") ? await get(`genres/${id}`)
-            : await get(`users/list/${id}`);
-        setEditedItem(selected[0]);
+            : await get(`admin/lists/${id}`);
+        setEditedItem(selected);
         const books = (type == "Genres") ? await get(`books/genre/${id}`) :
             await get(`lists/${id}`);
         let booksOpt = [];

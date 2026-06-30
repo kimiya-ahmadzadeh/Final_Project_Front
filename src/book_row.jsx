@@ -12,23 +12,25 @@ export function BookRows(props) {
     const [books, setBooks] = useState([]);
 
     const loadBooks = async () => {
-        const loadedBooks = await get(`books/genre/${props.genre.id}`);
+        const loadedBooks = (props.source == "genre") ? await get(`books/genre/${props.item.id}`)
+            : await get(`lists/${props.item.id}`);
         const displayedBooks = loadedBooks.slice(0, 5); // only show 5 books in homepage
         setBooks(displayedBooks);
     }
 
     const showAll = () => {
-        navigate(`/genres/${props.genre.id}`);
+        navigate(`/more/${props.source}/${props.item.id}`);
     }
 
     useEffect(() => {
         loadBooks();
-    }, []);
+    }, [props.item]);
 
     return (
         <div className="book-row">
             <div className="row-header">
-                <div className="genre-name"> {props.genre.name}</div>
+                <div className="genre-name">{props.item.name}</div>
+                {props.source == "list" ? <div className="genre-desc">{props.item.description}</div> : null}
                 <Button onClick={showAll}>Show all</Button>
             </div>
             <div className="book-slide">

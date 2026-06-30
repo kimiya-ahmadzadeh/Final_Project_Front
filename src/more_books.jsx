@@ -8,19 +8,26 @@ import { Loading } from "./loading";
 
 export function Genre() {
 
-    const { id } = useParams();
-    const [genre, setGenre] = useState([]);
+    const { id, name } = useParams();
+    const [item, setItem] = useState([]);
     const [books, setBooks] = useState([]);
 
     const loadPage = async () => {
-        const loadedGenre = await get(`genres/${id}`);
-        const loadedBooks = await get(`books/genre/${id}`);
-        setGenre(loadedGenre);
+        let loadedItem = [];
+        let loadedBooks = [];
+        if (name == "genre") {
+            loadedItem = await get(`genres/${id}`);
+            loadedBooks = await get(`books/genre/${id}`);
+        } else if (name == "list") {
+            loadedItem = await get(`users/list/${id}`);
+            loadedBooks = await get(`lists/${id}`);
+        } else if (name == "author") {
+            loadedItem = { name: id };
+            loadedBooks = await get(`authors/${id}`);
+        }
+        console.log(loadedItem);
+        setItem(loadedItem);
         setBooks(loadedBooks);
-    }
-
-    const handleChange = () => {
-        setChangePage(changePage + 1);
     }
 
     useEffect(() => {
@@ -30,10 +37,11 @@ export function Genre() {
     return (
         <>
             <Header />
-            {genre[0] == undefined || books == undefined ? <Loading /> :
+            {item == undefined || books == undefined ? <Loading /> :
                 <div className="genre">
                     <div className="genre-header">
-                        <h3>{genre[0].name} Category</h3>
+                        <h3>Books related to {item.name}</h3>
+                        {name == "list" ? <p>{item.description}</p> : null}
                         <p>Total books: {books.length}</p>
                     </div>
                     <div className="genre-books">

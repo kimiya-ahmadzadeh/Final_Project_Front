@@ -2,7 +2,7 @@ import { Button, Tab, Tabs } from "@mui/material";
 import { Header } from "./header";
 import { useState } from "react";
 import { PaginateBooks } from "./paginated_books";
-import { get, GetUserID } from "./fetch_data";
+import { get } from "./fetch_data";
 import { useEffect } from "react";
 import { AdminContent } from "./admin_content";
 
@@ -13,7 +13,6 @@ export function AdminPage() {
     const [items, setItems] = useState([]);
     const [books, setBooks] = useState([]);
     const [change, setChange] = useState(0);
-    const adminID = GetUserID();
 
     const loadBooks = async () => {
         if (tab == 0) {
@@ -30,7 +29,7 @@ export function AdminPage() {
             setItems(loadedGenres);
         }
         else if (tab == 2) {
-            const loadedLists = await get(`admin/lists/${adminID}`);
+            const loadedLists = await get(`admin/lists`);
             setItems(loadedLists);
         }
     }

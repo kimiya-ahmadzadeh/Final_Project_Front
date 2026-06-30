@@ -33,7 +33,7 @@ export function Library(props) {
 
     const addList = async () => {
         if (listName.length > 0) {
-            const body = { name: listName, description: listDesc, user_id: userID, created: true }
+            const body = { name: listName, description: listDesc, user_id: userID, public: false, created: true }
             const add = await post(`users/lists`, body);
             setChangeList(changeList + 1);
             setOpen(false);

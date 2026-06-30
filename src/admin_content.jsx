@@ -27,7 +27,7 @@ export function AdminContent(props) {
 
     const addItem = async () => {
         (props.type == "Genres") ? await post(`genres`, { name })
-            : await post(`users/lists`, { name, description: desc, user_id: userID, admin_id: userID });
+            : await post(`admin/lists`, { name, description: desc, user_id: userID });
         setOpen(false);
         props.changePage();
     }
