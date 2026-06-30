@@ -33,7 +33,8 @@ export function Comments(props) {
                 {comments.map((c) => {
                     return (
                         <div key={c.id} className="comment">
-                            <div className="comment-header">{c.first_name + " " + c.last_name} commented:</div>
+                            <div className="comment-header">{c.first_name + " " + c.last_name}</div>
+                            <div className="comment-date">{c.date.slice(0, 10)}</div>
                             <div className="comment-text">{c.text}</div>
                         </div>
                     );

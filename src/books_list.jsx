@@ -20,9 +20,14 @@ export function BooksList(props) {
     }
 
     const editList = async () => {
-        const body = { name: listName, description: listDesc, listID: props.list.id };
-        const changedList = await put(`users/lists`, body);
-        props.changeList();
+        if (listName == "Recent Books" || listName == "Favorite Books" || listName == "Bookmarked Books") {
+            window.alert("Can't choose this name.");
+        }
+        else {
+            const body = { name: listName, description: listDesc, listID: props.list.id };
+            const changedList = await put(`users/lists`, body);
+            props.changeList();
+        }
         setOpen(false);
     }
 

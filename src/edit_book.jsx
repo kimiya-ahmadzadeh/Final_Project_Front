@@ -16,30 +16,35 @@ export function EditBook(props) {
     const [genres, setGenres] = useState(props.type ? props.bookGenres : []);
 
     const saveBook = async () => {
-        if (props.type) {
-            const body = { id: ISBN, title, author, summary, year, language, pages, pdf };
-            const edited = await put(`books/${props.book.id}`, body);
-            const deleted = await deleting(`genres/${props.book.id}`);
-            genres.forEach(async (g) => {
-                const genreBody = { genreID: g.id, bookID: props.book.id }
-                const posted = await post(`genres/book`, genreBody);
-            });
+        let regex = /^\d+$/;
+        if (!regex.test(year) || !regex.test(pages)) {
+            window.alert("Enter number.");
+        } else {
+            if (props.type) {
+                const body = { id: ISBN, title, author, summary, year, language, pages, pdf };
+                const edited = await put(`books/${props.book.id}`, body);
+                const deleted = await deleting(`books/genres/${props.book.id}`);
+                genres.forEach(async (g) => {
+                    const genreBody = { genreID: g, bookID: props.book.id }
+                    const posted = await post(`genres/book`, genreBody);
+                });
+            }
+            else {
+                const body = { id: ISBN, title, author, summary, year, language, pages, pdf };
+                const posted = await post(`books`, body);
+                genres.forEach(async (g) => {
+                    const genreBody = { genreID: g.id, bookID: ISBN };
+                    const postedGenre = await post(`genres/book`, genreBody);
+                });
+            }
+            props.close();
         }
-        else {
-            const body = { id: ISBN, title, author, summary, year, language, pages, pdf };
-            const posted = await post(`books`, body);
-            genres.forEach(async (g) => {
-                const genreBody = { genreID: g.id, bookID: ISBN };
-                const postedGenre = await post(`genres/book`, genreBody);
-            });
-        }
-        props.close();
-
     }
 
-    const addBook = async () => {
-        const body = { id: ISBN, title, author, summary, year, language, pages, pdf };
-        console.log(body);
+    const saveGenre = (value) => {
+        let genreIDs = [];
+        value.forEach((v) => genreIDs.push(v.id));
+        setGenres(genreIDs);
     }
 
     return (
@@ -59,7 +64,7 @@ export function EditBook(props) {
                     getOptionLabel={(option) => option.label}
                     getOptionKey={(option) => option.id}
                     defaultValue={props.genres.filter((o) => props.bookGenres?.includes(o.id))}
-                    onChange={(event, value) => setGenres(value)}
+                    onChange={(event, value) => saveGenre(value)}
                     renderInput={(params) => (
                         <TextField
                             {...params}

@@ -6,6 +6,7 @@ import { Header } from "./header";
 import { useEffect } from "react";
 import { Loading } from "./loading";
 import { useNavigate } from "react-router-dom";
+import { Footer } from "./footer";
 
 export function HomePage() {
 
@@ -29,7 +30,7 @@ export function HomePage() {
 
     return (
         <>
-            {genres == undefined || recs == undefined ? <Loading /> :
+            {randGenres == undefined || recs == undefined ? <Loading /> :
                 <div className="home-page">
                     <Header />
                     <div className="main-pic">BACKGROUND PICTUREEEEEEEEEEEEEEEEEEEEEEEEEEEE</div>
@@ -53,6 +54,7 @@ export function HomePage() {
                             })}
                         </div>
                     </div>
+                    <Footer />
                 </div>
             }
         </>

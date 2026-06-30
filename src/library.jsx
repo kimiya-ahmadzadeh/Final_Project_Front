@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { get, GetUserID, post } from "./fetch_data";
 import { Loading } from "./loading";
+import { Footer } from "./footer";
 
 export function Library(props) {
 
@@ -33,9 +34,14 @@ export function Library(props) {
 
     const addList = async () => {
         if (listName.length > 0) {
-            const body = { name: listName, description: listDesc, user_id: userID, public: false, created: true }
-            const add = await post(`users/lists`, body);
-            setChangeList(changeList + 1);
+            if (listName == "Recent Books" || listName == "Favorite Books" || listName == "Bookmarked Books") {
+                window.alert("Can't choose this name.");
+            }
+            else {
+                const body = { name: listName, description: listDesc, user_id: userID, public: false, created: true }
+                const add = await post(`users/lists`, body);
+                setChangeList(changeList + 1);
+            }
             setOpen(false);
         } else {
             window.alert("List name is required");
@@ -67,6 +73,7 @@ export function Library(props) {
                     <Button variant="outlined" onClick={() => setOpen(false)}>Cancle</Button>
                 </div>
             </Modal>
+            <Footer />
         </div>
     );
 }

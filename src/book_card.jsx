@@ -13,12 +13,6 @@ export function BookCard(props) {
     const [bookGenres, setBookGenres] = useState([]);
     const [genres, setGenres] = useState([]);
 
-    const handleClick = async (id) => {
-        navigate(`/book/${id}`);
-        const body = { bookID: id, listID: null, listName: "Recent Books", userID };
-        const postBook = await post(`lists`, body);
-    }
-
     const deleteBookFromList = async (listID, bookID) => {
         const deleted = await deleting(`lists/${listID}/${bookID}`);
         props.changePage(false);
@@ -53,7 +47,7 @@ export function BookCard(props) {
     const navigate = useNavigate();
     return (
         <div className="book-card">
-            <div className="card-content" onClick={() => handleClick(props.book.id)} onContextMenu={(e) => handleRightClick(e)}>
+            <div className="card-content" onClick={() => navigate(`/book/${props.book.id}`)} onContextMenu={(e) => handleRightClick(e)}>
                 <div className="book-card-cover">COVER</div>
                 <div className="book-card-title">{props.book.title}</div>
                 <div className="book-card-author">{props.book.author}</div>

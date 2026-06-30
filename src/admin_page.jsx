@@ -5,6 +5,7 @@ import { PaginateBooks } from "./paginated_books";
 import { get } from "./fetch_data";
 import { useEffect } from "react";
 import { AdminContent } from "./admin_content";
+import { Footer } from "./footer";
 
 export function AdminPage() {
 
@@ -55,6 +56,7 @@ export function AdminPage() {
                 </Tabs>
             </div>
             <AdminContent type={tabLabel[tab]} items={items} books={books} changePage={handleChange} />
+            <Footer />
         </div>
     );
 }

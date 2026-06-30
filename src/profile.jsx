@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { get, GetUserID, put } from "./fetch_data";
 import { Loading } from "./loading";
+import { Footer } from "./footer";
 
 export function Profile() {
 
@@ -60,6 +61,7 @@ export function Profile() {
                             </div>
                         </div>
                     </div>
+                    <Footer />
                 </div>
             }
         </>

@@ -30,6 +30,12 @@ export function Book() {
         setLists(listOpt);
     }
 
+    const handleClick = async () => {
+        navigate(`/book/read/${id}`);
+        const body = { bookID: id, listID: null, listName: "Recent Books", userID };
+        const postBook = await post(`lists`, body);
+    }
+
     const addToDefault = async (listName) => {
         const body = { bookID: id, listID: null, listName, userID };
         const posted = await post(`lists`, body);
@@ -82,9 +88,10 @@ export function Book() {
                     <div className="side-info">
                         <div className="summary">{book.summary}</div>
                         <div className="genres-list">
+                            <div>Genres</div>
                             {genres.map((g) => {
                                 return (
-                                    <div key={g.id} className="genre-chip" onClick={() => navigate(`/genres/${g.id}`)}>{g.name}</div>
+                                    <div key={g.id} className="genre-chip" onClick={() => navigate(`/more/genre/${g.id}`)}>{g.name}</div>
                                 );
                             })}
                         </div>
@@ -102,7 +109,7 @@ export function Book() {
                         </div>
                     </div>
                 </div>
-                <Button variant="outlined" onClick={() => { navigate(`/book/read/${id}`) }}>READ</Button>
+                <Button variant="outlined" onClick={() => handleClick()}>READ</Button>
                 <Comments bookID={id} />
             </div>
         </div>

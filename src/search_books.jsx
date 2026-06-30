@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { Loading } from './loading';
 import { Header } from './header';
 import { PaginateBooks } from './paginated_books';
+import { Footer } from './footer';
 
 
 export function SearchBooks() {
@@ -156,6 +157,7 @@ export function SearchBooks() {
             <div className='search-results'>
                 <PaginateBooks books={books} />
             </div>
+            <Footer />
         </div>
     )
 }
