@@ -48,7 +48,7 @@ export function BookCard(props) {
     return (
         <div className="book-card">
             <div className="card-content" onClick={() => navigate(`/book/${props.book.id}`)} onContextMenu={(e) => handleRightClick(e)}>
-                <div className="book-card-cover">COVER</div>
+                <img className="book-card-cover" src={props.book.cover}></img>
                 <div className="book-card-title">{props.book.title}</div>
                 <div className="book-card-author">{props.book.author}</div>
             </div>

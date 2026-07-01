@@ -66,7 +66,9 @@ export function Book() {
             <Header />
             <div className="book-info">
                 <div className="main-info">
-                    <div className="book-cover">COVER</div>
+                    <div className="book-cover">
+                        <img src={book.cover}></img>
+                    </div>
                     <div className="top-info">
                         <div className="book-title">{book.title}</div>
                         <div className="book-author" onClick={() => showAuthor(book.author)}>{book.author}</div>

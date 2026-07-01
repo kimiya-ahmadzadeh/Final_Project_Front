@@ -1,37 +1,38 @@
-import PDFViewer from "@embedpdf/react-pdf-viewer";
+import { PDFViewer } from "@embedpdf/react-pdf-viewer";
 import { Header } from "./header";
-import { EmbedPDF } from "@simplepdf/react-embed-pdf";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { get } from "./fetch_data";
+import { Footer } from "./footer";
 
 export function ReadBook() {
 
-    // const openRemotePdf = async () => {
-    //     const registry = await viewerRef.current?.registry;
-    //     const docManager = registry.getPlugin('document-manager').provides();
+    const { id } = useParams();
+    const [pdf, setPDF] = useState("");
 
-    //     docManager.openDocumentUrl({
-    //         url: 'https://dn710201.ca.archive.org/0/items/calvaryscross0000vari/calvaryscross0000vari.pdf',
-    //         autoActivate: true         // Switch tab to this document immediately
-    //     });
-    // };
+    const loadPDF = async () => {
+        const loadedPdf = await get(`book/pdf/${id}`);
+        const path = loadedPdf.pdf;
+        setPDF(path);
+    }
+
+    useEffect(() => {
+        loadPDF();
+    }, []);
 
     return (
         <div className="reading-page">
             <Header />
             <div className="pdf" style={{ height: '90dvh' }}>
-                {/* <PDFViewer
+                {pdf == "" ? null : <PDFViewer
                     style={{ height: '90dvh' }}
                     config={{
-                        url: 'https://archive.org/download/shavingofshagpat0000geor_c2p1/shavingofshagpat0000geor_c2p1.pdf',
+                        src: pdf,
                         theme: { preference: 'light' }
                     }}
-                /> */}
-                {/* <iframe src="https://archive.org/download/shavingofshagpat0000geor_c2p1/shavingofshagpat0000geor_c2p1.pdf" height={'90%'} width={'100%'}></iframe> */}
-                <EmbedPDF
-                    mode="inline"
-                    style={{ width: 900, height: 800 }}
-                    documentURL="https://archive.org/download/shavingofshagpat0000geor_c2p1/shavingofshagpat0000geor_c2p1.pdf"
-                />
+                />}
             </div>
+            <Footer />
         </div>
     );
 }

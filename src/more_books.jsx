@@ -25,7 +25,6 @@ export function Genre() {
             loadedItem = { name: id };
             loadedBooks = await get(`authors/${id}`);
         }
-        console.log(loadedItem);
         setItem(loadedItem);
         setBooks(loadedBooks);
     }
