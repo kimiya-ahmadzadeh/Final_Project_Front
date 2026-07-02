@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { Loading } from "./loading";
 import { useNavigate } from "react-router-dom";
 import { Footer } from "./footer";
+import { Chip } from "@mui/material";
 
 export function HomePage() {
 
@@ -44,12 +45,12 @@ export function HomePage() {
                             <BookRows item={g} source={"genre"} array={false} />
                         );
                     })}
-                    <div className="genres">
-                        <div className="genres-header">All Genres</div>
-                        <div className="genres-slide">
+                    <div className="genre-row">
+                        <div className="row-name">All Genres</div>
+                        <div className="genre-scroll">
                             {genres.map((g) => {
                                 return (
-                                    <div key={g.id} className="genres-card" onClick={() => navigate(`/more/genre/${g.id}`)}>{g.name}</div>
+                                    <Chip key={g.id} label={g.name} sx={{ margin: '15px' }} className="genres-card" onClick={() => navigate(`/more/genre/${g.id}`)} />
                                 );
                             })}
                         </div>

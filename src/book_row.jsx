@@ -5,6 +5,8 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { get } from "./fetch_data";
 import { useNavigate } from "react-router-dom";
+import { CustomButton } from "./custom_button";
+import { KeyboardArrowRight } from "@mui/icons-material";
 
 export function BookRows(props) {
 
@@ -29,11 +31,13 @@ export function BookRows(props) {
     return (
         <div className="book-row">
             <div className="row-header">
-                <div className="genre-name">{props.item.name}</div>
-                {props.source == "list" ? <div className="genre-desc">{props.item.description}</div> : null}
-                <Button onClick={showAll}>Show all</Button>
+                <div className="rec-info">
+                    <div className="row-name">{props.item.name}</div>
+                    {props.source == "list" ? <div className="row-desc">{props.item.description}</div> : null}
+                </div>
+                <CustomButton onClick={showAll} text="Show All" endIcon={<KeyboardArrowRight />} />
             </div>
-            <div className="book-slide">
+            <div className="scroll">
                 {books?.map((book) => {
                     return (
                         <BookCard key={book.id} book={book} />

@@ -2,7 +2,11 @@ import '../styles/header.css';
 import { Link, useNavigate } from "react-router-dom";
 import Button from '@mui/material/Button';
 import { Navigate } from 'react-router-dom';
+// import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
+// import ThreeDRotation from '@mui/icons-material/ThreeDRotation';
 import { GetAdmin } from './fetch_data';
+import { CustomButton } from './custom_button';
+import { AccountCircle, AdminPanelSettings, Home, LibraryBooks, LocalLibrary, Logout, Search } from '@mui/icons-material';
 
 export function Header() {
 
@@ -18,22 +22,22 @@ export function Header() {
         <div className="main-header">
             <div className="header-content">
                 <h1>Book Worm</h1>
-                <Link to="/" >
-                    <div><Button variant="outlined">Home</Button></div>
+                <Link to="/">
+                    <CustomButton variant="outlined" text="Home" startIcon={<Home />} />
                 </Link>
                 <Link to="/search">
-                    <div><Button variant="outlined">Search</Button></div>
+                    <CustomButton variant="outlined" text="Search" startIcon={<Search />} />
                 </Link>
                 <Link to="/library">
-                    <div><Button variant="outlined">My Library</Button></div>
+                    <CustomButton variant="outlined" text="My Library" startIcon={<LocalLibrary />} />
                 </Link>
                 <Link to="/profile">
-                    <div><Button variant="outlined">My Profile</Button></div>
+                    <CustomButton variant="outlined" text="My Profile" startIcon={<AccountCircle />} />
                 </Link>
                 {admin ? <Link to="/admin">
-                    <div><Button variant="outlined">Admin</Button></div>
+                    <CustomButton variant="outlined" text="Admin" startIcon={<AdminPanelSettings />} />
                 </Link> : null}
-                <div><Button variant="outlined" onClick={logout}>Log Out</Button></div>
+                <CustomButton variant="outlined" text="Log Out" startIcon={<Logout />} onClick={logout} />
             </div>
         </div>
     )
