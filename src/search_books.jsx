@@ -1,5 +1,5 @@
 import { Button, Modal, TextField, Autocomplete, InputLabel, Select, } from '@mui/material';
-import '../styles/search_modal.css';
+import '../styles/search_books.css';
 import { get } from "./fetch_data";
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -8,6 +8,10 @@ import { Loading } from './loading';
 import { Header } from './header';
 import { PaginateBooks } from './paginated_books';
 import { Footer } from './footer';
+import { CustomButton } from './custom_button';
+import { Search } from '@mui/icons-material';
+import { CustomSelect } from './custom_select';
+import { CustomField } from './custom_textfield';
 
 
 export function SearchBooks() {
@@ -40,10 +44,6 @@ export function SearchBooks() {
         setGenresOpt(genres);
         setLangOpt(langs);
     }
-
-    // const handleChange = () => {
-    //     setChangePage(changePage + 1);
-    // }
 
     useEffect(() => {
         loadOptions();
@@ -98,61 +98,23 @@ export function SearchBooks() {
     return (
         <div className="search-books">
             <Header />
-            <div className='filter-input'>
-                <div className='modal-content'>
-                    <div className='modal-header'>
-                        <div className='search-input'><TextField id="search-input" label="Search book title..." variant="outlined" onChange={(e) => setTitle(e.target.value)} /></div>
+            <div className='search-header'>
+                <div className='filter-input'>
+                    <div className='filter-row'>
+                        <CustomField label="Title" onChange={(e) => setTitle(e.target.value)} />
+                        <CustomField label="Author" onChange={(e) => setAuthor(e.target.value)} />
+                        <CustomField label="From year" onChange={(e) => setFromYear(e.target.value)} />
+                        <CustomField label="To year" onChange={(e) => setToYear(e.target.value)} />
                     </div>
-                    <div className='search-filters'>
-                        <div className='filter-rows'>
-                            <div className='filter-item'>
-                                <TextField id="author-input" label="Author" variant='outlined' onChange={(e) => setAuthor(e.target.value)} />
-                            </div>
-                            <div className='filter-item'>
-                                <Autocomplete
-                                    multiple
-                                    disablePortal
-                                    limitTags={3}
-                                    options={genresOpt}
-                                    getOptionLabel={(option) => option.label}
-                                    getOptionKey={(option) => option.id}
-                                    onChange={(event, value) => setGenres(value)}
-                                    renderInput={(params) => <TextField {...params} label="Genre" />}
-                                />
-                            </div>
-                        </div>
-                        <div className='filter-rows'>
-                            <div className='filter-item'>
-                                <Autocomplete
-                                    multiple
-                                    disablePortal
-                                    limitTags={3}
-                                    options={langOpt}
-                                    getOptionLabel={(option) => option.label}
-                                    onChange={(event, value) => setLangs(value)}
-                                    renderInput={(params) => <TextField {...params} label="Language" />}
-                                />
-                            </div>
-                            <div className='filter-item'>
-                                <Autocomplete
-                                    disablePortal
-                                    options={pagesOpt}
-                                    onChange={(event, value) => setPages(value)}
-                                    renderInput={(params) => <TextField {...params} label="Pages" />}
-                                />
-                            </div>
-                        </div>
-                        <div className='filter-rows'>
-                            <div className='filter-item'>
-                                <TextField id="from-year" label="From year" variant='outlined' onChange={(e) => setFromYear(e.target.value)} />
-                            </div>
-                            <div className='filter-item'>
-                                <TextField id="to-year" label="To year" variant='outlined' onChange={(e) => setToYear(e.target.value)} />
-                            </div>
-                        </div>
+                    <div className='filter-row'>
+                        <CustomSelect multiple options={genresOpt} getOptionLabel={(option) => option.label}
+                            getOptionKey={(option) => option.id} onChange={(event, value) => setGenres(value)} label="Genre" />
+                        <CustomSelect multiple options={langOpt} getOptionLabel={(option) => option.label}
+                            onChange={(event, value) => setLangs(value)} label="Languae" />
+                        <CustomSelect options={pagesOpt} onChange={(event, value) => setPages(value)} label="Pages" />
                     </div>
-                    <div className='search-btn'><Button variant='outlined' onClick={() => searchBook()}>Search</Button></div>
                 </div>
+                <CustomButton onClick={() => searchBook()} text="Find" endIcon={<Search />} />
             </div>
             <div className='search-results'>
                 <PaginateBooks books={books} />
