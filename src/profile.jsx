@@ -1,11 +1,12 @@
 import "../styles/profile.css";
-import { Button, TextField } from "@mui/material";
 import { Header } from "./header";
 import { useEffect } from "react";
 import { useState } from "react";
 import { get, GetUserID, put } from "./fetch_data";
 import { Loading } from "./loading";
 import { Footer } from "./footer";
+import { CustomField } from "./custom_textfield";
+import { CustomButton } from "./custom_button";
 
 export function Profile() {
 
@@ -47,17 +48,17 @@ export function Profile() {
                 <div className="profile">
                     <Header />
                     <div className="profile-card">
-                        <div className="profile-pic">PICTURE</div>
+                        <h4>My Information</h4>
                         <div className="profile-info">
                             <div className="personal-info">
-                                <TextField variant="outlined" label="First Name" defaultValue={firstName} required onChange={(e) => setFirstName(e.target.value)} />
-                                <TextField variant="outlined" label="Last Name" defaultValue={lastName} required onChange={(e) => setLastName(e.target.value)} />
-                                <TextField variant="outlined" label="Bio" defaultValue={bio} onChange={(e) => setBio(e.target.value)} />
+                                <CustomField label="First Name" defaultValue={firstName} required onChange={(e) => setFirstName(e.target.value)} />
+                                <CustomField label="Last Name" defaultValue={lastName} required onChange={(e) => setLastName(e.target.value)} />
+                                <CustomField label="Bio" defaultValue={bio} multiline onChange={(e) => setBio(e.target.value)} />
                             </div>
                             <div className="login-info">
-                                <TextField variant="outlined" label="User Name" defaultValue={username} required onChange={(e) => setUsername(e.target.value)} />
-                                <TextField variant="outlined" label="Password" defaultValue={password} required type="password" onChange={(e) => setPassword(e.target.value)} />
-                                <Button variant="outlined" onClick={editUser}>Confirm Changes</Button>
+                                <CustomField label="User Name" defaultValue={username} required onChange={(e) => setUsername(e.target.value)} />
+                                <CustomField label="Password" defaultValue={password} required type="password" onChange={(e) => setPassword(e.target.value)} />
+                                <CustomButton onClick={editUser} text="Confirm Changes" />
                             </div>
                         </div>
                     </div>

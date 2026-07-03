@@ -44,7 +44,7 @@ export function AdminContent(props) {
                     <Button variant="outlined" onClick={() => setOpen(true)}>Add</Button>
                 </div>
                 <div>
-                    <PaginateBooks books={props.items} source="admin" changePage={props.changePage} />
+                    <PaginateBooks books={props.items} source="admin" changePage={props.changePage} perPage={6} />
                 </div>
                 <Modal open={open} onClose={() => setOpen(false)}>
                     <EditBook genres={genres} type={false} close={() => closeModal()} />

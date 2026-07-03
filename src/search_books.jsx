@@ -117,7 +117,7 @@ export function SearchBooks() {
                 <CustomButton onClick={() => searchBook()} text="Find" endIcon={<Search />} />
             </div>
             <div className='search-results'>
-                <PaginateBooks books={books} />
+                <PaginateBooks books={books} perPage={9} />
             </div>
             <Footer />
         </div>

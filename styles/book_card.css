@@ -4,13 +4,7 @@
     justify-content: space-evenly;
     min-width: 25%;
     width: 25%;
-    background-color: #51b44826;
-    border-radius: 5px;
-}
-
-.book-card:hover {
-    cursor: pointer;
-    background-color: #51b4484a;
+    gap: 5px;
 }
 
 .card-content {
@@ -18,6 +12,13 @@
     align-items: center;
     padding: 15px;
     gap: 20px;
+    border-radius: 5px;
+    background-color: #51b44826;
+}
+
+.card-content:hover {
+    cursor: pointer;
+    background-color: #51b4484a;
 }
 
 .book-card-cover {
@@ -40,4 +41,10 @@
 
 .book-card-author {
     color: #2f432e;
+}
+
+.card-btns {
+    padding: 3px;
+    display: flex;
+    justify-content: space-evenly;
 }

@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import { styled } from '@mui/material/styles';
 import { TextField } from "@mui/material";
 
 const MyTextField = styled(TextField)({
@@ -14,6 +14,7 @@ const MyTextField = styled(TextField)({
 
 export function CustomField(props) {
     return (
-        <MyTextField variant="outlined" label={props.label} onChange={props.onChange} multiline={props.multiline} />
+        <MyTextField variant="outlined" label={props.label} onChange={props.onChange}
+            multiline={props.multiline} defaultValue={props.defaultValue} required={props.required} type={props.type} />
     );
 }

@@ -55,7 +55,7 @@ export function BooksList(props) {
                                 <div className="delete-list-btn"><Button variant="outlined" onClick={() => deleteList()}>Delete List</Button></div>
                             </div>
                         </div>
-                        <PaginateBooks books={books} listID={props.list.id} source={props.source} changePage={props.changePage} />
+                        <PaginateBooks books={books} listID={props.list.id} source={props.source} changePage={props.changePage} perPage={6} />
                         <Modal open={open} onClose={() => setOpen(false)} className="edit-list-modal">
                             <div className="modal-list">
                                 <TextField variant="outlined" label="List Name" value={listName} onChange={(e) => setListName(e.target.value)} />

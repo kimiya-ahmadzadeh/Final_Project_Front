@@ -4,6 +4,8 @@ import { deleting, get, GetUserID, post } from "./fetch_data";
 import { Button, Menu, MenuItem, Modal } from "@mui/material";
 import { useEffect, useState } from "react";
 import { EditBook } from "./edit_book";
+import { Delete, Edit } from "@mui/icons-material";
+import { CustomeIcon } from "./custome_icon";
 
 export function BookCard(props) {
 
@@ -54,9 +56,11 @@ export function BookCard(props) {
                     <div className="book-card-author">{props.book.author}</div>
                 </div>
             </div>
-            {props.source == "lib" ? <Button onClick={() => deleteBookFromList(props.listID, props.book.id)}>Delete</Button> : null}
-            {props.source == "admin" ? <Button onClick={() => editBook(props.book.id)} >Edit</Button> : null}
-            {props.source == "admin" ? <Button onClick={() => deleteBook(props.book.id)}>Delete</Button> : null}
+            <div className="card-btns">
+                {props.source == "lib" ? <CustomeIcon type="del" onClick={() => deleteBookFromList(props.listID, props.book.id)} /> : null}
+                {props.source == "admin" ? <CustomeIcon type="edit" onClick={() => editBook(props.book.id)} /> : null}
+                {props.source == "admin" ? <CustomeIcon type="del" onClick={() => deleteBook(props.book.id)} /> : null}
+            </div>
             <Modal open={edit} onClose={() => setEdit(false)}>
                 <EditBook book={book} bookGenres={bookGenres} genres={genres} type={true} close={() => closeEdit()} />
             </Modal>

@@ -1,0 +1,20 @@
+.genre {
+    min-height: 85dvh;
+    display: flex;
+    flex-direction: column;
+}
+
+.genre-header {
+    display: flex;
+    padding: 10px 30px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.primary {
+    font-size: large;
+}
+
+.secondary {
+    color: #5f5f5f;
+}

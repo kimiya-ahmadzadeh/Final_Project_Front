@@ -5,6 +5,8 @@ import { get } from "./fetch_data";
 import { useEffect } from "react";
 import { PaginateBooks } from "./paginated_books";
 import { Loading } from "./loading";
+import { Footer } from "./footer";
+import "../styles/more_books.css";
 
 export function Genre() {
 
@@ -39,14 +41,17 @@ export function Genre() {
             {item == undefined || books == undefined ? <Loading /> :
                 <div className="genre">
                     <div className="genre-header">
-                        <h3>Books related to {item.name}</h3>
-                        {name == "list" ? <p>{item.description}</p> : null}
-                        <p>Total books: {books.length}</p>
+                        <div>
+                            <div className="primary">Books related to {item.name}</div>
+                            {name == "list" ? <div className="secondary">{item.description}</div> : null}
+                        </div>
+                        <div className="primary">Total books: {books.length}</div>
                     </div>
                     <div className="genre-books">
-                        <PaginateBooks books={books} visibility={"hidden"} />
+                        <PaginateBooks books={books} visibility={"hidden"} perPage={9} />
                     </div>
                 </div>}
+            <Footer />
         </>
     );
 }

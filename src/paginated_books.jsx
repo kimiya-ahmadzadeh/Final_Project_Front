@@ -7,9 +7,8 @@ import { Loading } from "./loading";
 
 export function PaginateBooks(props) {
     const [page, setPage] = useState(1);
-    const perPage = 9;
-    const pageCount = Math.ceil(props.books.length / perPage);
-    const currentBooks = props.books.slice((page - 1) * perPage, ((page - 1) * perPage + perPage));
+    const pageCount = Math.ceil(props.books.length / props.perPage);
+    const currentBooks = props.books.slice((page - 1) * props.perPage, ((page - 1) * props.perPage + props.perPage));
 
     const handlePageClick = (event, value) => {
         setPage(value);
