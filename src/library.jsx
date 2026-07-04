@@ -1,4 +1,4 @@
-import { List, ListItem, ListItemButton, ListItemText, Tabs, Tab, Button, Modal, TextField } from "@mui/material";
+import { List, ListItem, ListItemButton, ListItemText, Tabs, Tab, Button, Modal, TextField, Alert } from "@mui/material";
 import "../styles/library.css";
 import { Header } from "./header";
 import { BooksList } from "./books_list";
@@ -9,6 +9,7 @@ import { Loading } from "./loading";
 import { Footer } from "./footer";
 import { CustomButton } from "./custom_button";
 import { CustomField } from "./custom_textfield";
+import { Close } from "@mui/icons-material";
 
 export function Library(props) {
 
@@ -18,6 +19,8 @@ export function Library(props) {
     const [changeList, setChangeList] = useState(0);
     const [listName, setListName] = useState("");
     const [listDesc, setListDesc] = useState("");
+    const [showAlert, setShowAlert] = useState("none");
+    const [alertText, setAlertText] = useState("");
     const userID = GetUserID();
 
     const loadLists = async () => {
@@ -35,18 +38,21 @@ export function Library(props) {
     };
 
     const addList = async () => {
+        let name = listName.trim();
         if (listName.length > 0) {
             if (listName == "Recent Books" || listName == "Favorite Books" || listName == "Bookmarked Books") {
-                window.alert("Can't choose this name.");
+                setAlertText("This list exists by default.");
+                setShowAlert('flex');
             }
             else {
                 const body = { name: listName, description: listDesc, user_id: userID, public: false, created: true }
                 const add = await post(`users/lists`, body);
                 setChangeList(changeList + 1);
+                setOpen(false);
             }
-            setOpen(false);
         } else {
-            window.alert("List name is required");
+            setAlertText("Fill the required field");
+            setShowAlert('flex');
         }
     }
 
@@ -69,9 +75,11 @@ export function Library(props) {
             <Modal open={open} onClose={() => setOpen(false)} className="list-modal" >
                 <div className="modal-list">
                     <h2>New Reading List</h2>
-                    <CustomField label="List name" required onChange={(e) => setListName(e.target.value)} />
+                    <CustomField label="List name" required onChange={(e) => setListName(e.target.value.trim())} />
+                    <Alert severity="error" style={{ display: showAlert }}
+                        action={<Close onClick={() => setShowAlert("none")} />}>{alertText}</Alert>
                     <CustomField label="List description" onChange={(e) => setListDesc(e.target.value)} />
-                    <CustomButton variant="outlined" onClick={() => addList()} text="Add" />
+                    <CustomButton onClick={() => addList()} text="Add" />
                 </div>
             </Modal>
             <Footer />

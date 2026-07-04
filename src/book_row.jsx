@@ -14,8 +14,8 @@ export function BookRows(props) {
     const [books, setBooks] = useState([]);
 
     const loadBooks = async () => {
-        const loadedBooks = (props.source == "genre") ? await get(`books/genre/${props.item.id}`)
-            : await get(`lists/${props.item.id}`);
+        const loadedBooks = (props.source == "genre") ? await get(`books/genre/${props.item?.id}`)
+            : await get(`lists/${props.item?.id}`);
         const displayedBooks = loadedBooks.slice(0, 5); // only show 5 books in homepage
         setBooks(displayedBooks);
     }
@@ -33,7 +33,7 @@ export function BookRows(props) {
             <div className="row-header">
                 <div className="rec-info">
                     <div className="row-name">{props.item.name}</div>
-                    {props.source == "list" ? <div className="row-desc">{"-- " + props.item.description}</div> : null}
+                    {props.source == "list" ? <div className="row-desc">{props.item.description}</div> : null}
                 </div>
                 <CustomButton onClick={showAll} text="Show All" endIcon={<KeyboardArrowRight />} />
             </div>

@@ -7,8 +7,8 @@ import { Loading } from "./loading";
 
 export function PaginateBooks(props) {
     const [page, setPage] = useState(1);
-    const pageCount = Math.ceil(props.books.length / props.perPage);
-    const currentBooks = props.books.slice((page - 1) * props.perPage, ((page - 1) * props.perPage + props.perPage));
+    const pageCount = Math.ceil(props.books?.length / props.perPage);
+    const currentBooks = props.books?.slice((page - 1) * props.perPage, ((page - 1) * props.perPage + props.perPage));
 
     const handlePageClick = (event, value) => {
         setPage(value);
@@ -16,9 +16,9 @@ export function PaginateBooks(props) {
 
     return (
         <>
-            {
-                props.books == undefined ? <Loading /> :
-                    <div className="list">
+            {props.books == undefined ? <Loading /> :
+                <div className="list">
+                    {props.books.length == 0 ? <div>Nothing to show here</div> : <>
                         <div className="page">
                             {currentBooks.map((book, index) => {
                                 return (
@@ -29,8 +29,8 @@ export function PaginateBooks(props) {
                         <div className="pages-control">
                             <Pagination count={pageCount} page={page} onChange={handlePageClick} />
                         </div>
-                    </div>
-            }
+                    </>}
+                </div>}
         </>
     );
 }

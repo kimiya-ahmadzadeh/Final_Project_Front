@@ -1,4 +1,4 @@
-import { Button, Modal, TextField } from "@mui/material";
+import { Alert, Button, Modal, TextField } from "@mui/material";
 import { PaginateBooks } from "./paginated_books";
 import { PaginateArray } from "./paginated_array";
 import { EditBook } from "./edit_book";
@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { get, GetUserID, post } from "./fetch_data";
 import { CustomButton } from "./custom_button";
 import { CustomField } from "./custom_textfield";
+import { Close } from "@mui/icons-material";
 
 export function AdminContent(props) {
 
@@ -13,6 +14,8 @@ export function AdminContent(props) {
     const [genres, setGenres] = useState([]);
     const [name, setName] = useState("");
     const [desc, setDesc] = useState("");
+    const [showAlert, setShowAlert] = useState("none");
+    const [alertText, setAlertText] = useState("");
     const userID = GetUserID();
 
     const loadGenres = async () => {
@@ -28,10 +31,20 @@ export function AdminContent(props) {
     }
 
     const addItem = async () => {
-        (props.type == "Genres") ? await post(`genres`, { name })
-            : await post(`admin/lists`, { name, description: desc, user_id: userID });
-        setOpen(false);
-        props.changePage();
+        if (name.length > 0) {
+            if (name == "Recent Books" || name == "Favorite Books" || name == "Bookmarked Books") {
+                setAlertText("This list exists by default.");
+                setShowAlert('flex');
+            }
+            (props.type == "Genres") ? await post(`genres`, { name })
+                : await post(`admin/lists`, { name, description: desc, user_id: userID });
+            setOpen(false);
+            props.changePage();
+        }
+        else {
+            setAlertText("Fill the required field.");
+            setShowAlert('flex');
+        }
     }
 
     useEffect(() => {
@@ -60,7 +73,9 @@ export function AdminContent(props) {
                 <Modal open={open} onClose={() => setOpen(false)} className="modal">
                     <div className="modal-content">
                         <div>Add {props.type}</div>
-                        <CustomField label="Name" onChange={(e) => setName(e.target.value)} required />
+                        <CustomField label="Name" onChange={(e) => setName(e.target.value.trim())} required />
+                        <Alert severity="error" style={{ display: showAlert }}
+                            action={<Close onClick={() => setShowAlert("none")} />}>{alertText}</Alert>
                         {props.type == "Lists" ? <div><CustomField label="Description" onChange={(e) => setDesc(e.target.value)} /></div> : null}
                         <CustomButton onClick={() => addItem()} text="Add" />
                     </div>

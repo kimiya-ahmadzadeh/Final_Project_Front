@@ -4,20 +4,29 @@
     height: 100dvh;
 }
 
-.profile-card {
-    height: 85%;
+.profile-page {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px;
 }
 
-
 .profile-info {
     width: 70%;
-    height: 80%;
     display: flex;
     justify-content: space-evenly;
+    align-items: center;
+}
+
+.info-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 90%;
+    gap: 20px;
+    border-bottom: 1px solid #5f5f5f6b;
+    padding-bottom: 20px;
 }
 
 .personal-info {
@@ -30,4 +39,41 @@
     display: flex;
     flex-direction: column;
     gap: 50px;
+}
+
+.profile-comments {
+    display: flex;
+    flex-direction: column;
+    min-height: 50dvh;
+    width: 90%;
+    align-items: center;
+    height: 40dvh;
+}
+
+.user-comments {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    height: 80%;
+    gap: 20px;
+    flex-wrap: wrap;
+    overflow: hidden auto;
+}
+
+.comment {
+    white-space: nowrap;
+}
+
+.comment-btns {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+.comment-book {
+    font-style: italic;
+    text-decoration: underline dashed;
+    cursor: pointer;
 }
