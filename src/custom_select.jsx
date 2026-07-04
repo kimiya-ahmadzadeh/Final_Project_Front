@@ -23,6 +23,7 @@ export function CustomSelect(props) {
             options={props.options}
             getOptionLabel={props.getOptionLabel}
             getOptionKey={props.getOptionKey}
+            defaultValue={props.defaultValue}
             onChange={props.onChange}
             renderInput={(params) => <TextField {...params} label={props.label} />}
         />

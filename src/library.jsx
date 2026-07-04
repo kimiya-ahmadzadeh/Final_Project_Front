@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 import { get, GetUserID, post } from "./fetch_data";
 import { Loading } from "./loading";
 import { Footer } from "./footer";
+import { CustomButton } from "./custom_button";
+import { CustomField } from "./custom_textfield";
 
 export function Library(props) {
 
@@ -60,17 +62,16 @@ export function Library(props) {
                             );
                         })}
                     </Tabs>
-                    <Button onClick={() => setOpen(true)}>Add List</Button>
+                    <CustomButton onClick={() => setOpen(true)} text="Add List" />
                 </div>
                 <BooksList list={lists[tab]} userID={userID} changePage={handleChange} source={"lib"} />
             </div>
-            <Modal open={open} onClose={() => setOpen(false)}>
-                <div className="list-modal">
+            <Modal open={open} onClose={() => setOpen(false)} className="list-modal" >
+                <div className="modal-list">
                     <h2>New Reading List</h2>
-                    <TextField label="List name" variant="outlined" required onChange={(e) => setListName(e.target.value)} />
-                    <TextField label="List description" variant="outlined" onChange={(e) => setListDesc(e.target.value)} />
-                    <Button variant="outlined" onClick={() => addList()}>Add</Button>
-                    <Button variant="outlined" onClick={() => setOpen(false)}>Cancle</Button>
+                    <CustomField label="List name" required onChange={(e) => setListName(e.target.value)} />
+                    <CustomField label="List description" onChange={(e) => setListDesc(e.target.value)} />
+                    <CustomButton variant="outlined" onClick={() => addList()} text="Add" />
                 </div>
             </Modal>
             <Footer />

@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { get, GetUserID, post } from "./fetch_data";
 import "../styles/comments.css";
 import { Button, TextField } from "@mui/material";
+import { CustomField } from "./custom_textfield";
+import { CustomButton } from "./custom_button";
 
 export function Comments(props) {
 
@@ -28,21 +30,23 @@ export function Comments(props) {
 
     return (
         <div className="comment-section">
-            <div>Comments ({comments.length})</div>
+            <div className="primary">Comments ({comments.length})</div>
             <div className="comments">
                 {comments.map((c) => {
                     return (
                         <div key={c.id} className="comment">
-                            <div className="comment-header">{c.first_name + " " + c.last_name}</div>
-                            <div className="comment-date">{c.date.slice(0, 10)}</div>
+                            <div className="comment-header">
+                                <div className="primary">{c.first_name + " " + c.last_name}</div>
+                                <div className="secondary">{c.date.slice(0, 10)}</div>
+                            </div>
                             <div className="comment-text">{c.text}</div>
                         </div>
                     );
                 })}
             </div>
             <div className="post-comment">
-                <TextField placeholder="Write a comment..." onChange={(e) => setUserComment(e.target.value)} value={userComment} />
-                <Button variant="outlined" onClick={() => postComment(userComment)}>Post</Button>
+                <CustomField label="Write a comment..." onChange={(e) => setUserComment(e.target.value)} value={userComment} multiline rows={2} />
+                <CustomButton onClick={() => postComment(userComment)} text="Post" />
             </div>
         </div>
     );

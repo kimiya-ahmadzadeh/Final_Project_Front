@@ -1,6 +1,10 @@
 import { Autocomplete, Button, Modal, Pagination, TextField } from "@mui/material";
 import { useState } from "react";
 import { deleting, get, GetUserID, post, put } from "./fetch_data";
+import { CustomIcon } from "./custom_icon";
+import { CustomField } from "./custom_textfield";
+import { CustomSelect } from "./custom_select";
+import { CustomButton } from "./custom_button";
 
 export function PaginateArray(props) {
 
@@ -8,9 +12,8 @@ export function PaginateArray(props) {
     const [editedItem, setEditedItem] = useState({});
     const [selectedBooks, setSelectedBooks] = useState([]);
     const [page, setPage] = useState(1);
-    const perPage = 8;
-    const pageCount = Math.ceil(props.items.length / perPage);
-    const currentItems = props.items.slice((page - 1) * perPage, ((page - 1) * perPage + perPage));
+    const pageCount = Math.ceil(props.items.length / props.perPage);
+    const currentItems = props.items.slice((page - 1) * props.perPage, ((page - 1) * props.perPage + props.perPage));
     const adminID = GetUserID();
 
     const handlePageClick = (event, value) => {
@@ -66,16 +69,20 @@ export function PaginateArray(props) {
     return (
         // <>
         //     {
-        //         props.books == undefined ? <Loading /> :
+        //         props.items == undefined ? <Loading /> :
         <div className="list">
             <div className="page">
                 {currentItems.map((item) => {
                     return (
-                        <div key={item.id}>
-                            <div>{item.name}</div>
-                            <div>{item.description}</div>
-                            <Button onClick={() => openEdit(item.id, props.type)}>Edit</Button>
-                            <Button onClick={() => deleteCard(item.id, props.type)}>Delete</Button>
+                        <div key={item.id} className="item-card">
+                            <div className="item-info">
+                                <div className="primary">{item.name}</div>
+                                <div className="secondary">{item.description}</div>
+                            </div>
+                            <div className="card-btns">
+                                <CustomIcon type="edit" onClick={() => openEdit(item.id, props.type)} />
+                                <CustomIcon type="del" onClick={() => deleteCard(item.id, props.type)} />
+                            </div>
                         </div>
                     );
                 })}
@@ -83,34 +90,21 @@ export function PaginateArray(props) {
             <div className="pages-control">
                 <Pagination count={pageCount} page={page} onChange={handlePageClick} />
             </div>
-            <Modal open={open} onClose={() => setOpen(false)}>
-                <div className="edit-modal">
+            <Modal open={open} onClose={() => setOpen(false)} className="modal">
+                <div className="modal-content">
                     <h3>Edit {props.type}</h3>
-                    <div className="item-info">
-                        <TextField variant="outlined" label="name" defaultValue={editedItem.name}
+                    <div className="edit-info">
+                        <CustomField label="Name" defaultValue={editedItem.name} required
                             onChange={(e) => setEditedItem({ id: editedItem.id, name: e.target.value, description: editedItem.description })} />
-                        {props.type == "Lists" ? <TextField variant="outlined" label="description" defaultValue={editedItem.description}
+                        {props.type == "Lists" ? <CustomField label="Description" defaultValue={editedItem.description}
                             onChange={(e) => setEditedItem({ id: editedItem.id, name: editedItem.name, description: e.target.value })} />
                             : null}
-                        <Autocomplete
-                            multiple
-                            limitTags={3}
-                            options={props.books}
-                            getOptionLabel={(option) => option.label}
-                            getOptionKey={(option) => option.id}
-                            defaultValue={props.books.filter((b) => selectedBooks.includes(b.id))}
-                            onChange={(event, value) => select(value)}
-                            renderInput={(params) => (
-                                <TextField
-                                    {...params}
-                                    variant="outlined"
-                                    label="Books"
-                                />
-                            )}
-                        >
-                        </Autocomplete>
+                        <CustomSelect
+                            multiple options={props.books} getOptionLabel={(option) => option.label}
+                            getOptionKey={(option) => option.id} defaultValue={props.books.filter((b) => selectedBooks.includes(b.id))}
+                            onChange={(event, value) => select(value)} label="Books" />
                     </div>
-                    <Button variant="outlined" onClick={() => editCard(editedItem.id, props.type)}>Save Changes</Button>
+                    <CustomButton onClick={() => editCard(editedItem.id, props.type)} text="Save Changes" />
                 </div>
             </Modal>
         </div>

@@ -3,8 +3,13 @@ import { Header } from "./header";
 import { useState } from "react";
 import { get, GetUserID, post } from "./fetch_data";
 import { useEffect } from "react";
-import { Autocomplete, Button, TextField } from "@mui/material";
+import { Autocomplete, Button, Chip, TextField } from "@mui/material";
 import { Comments } from "./comments";
+import "../styles/book.css";
+import { Footer } from "./footer";
+import { CustomButton } from "./custom_button";
+import { Bookmark, Favorite, MonitorHeart } from "@mui/icons-material";
+import { CustomSelect } from "./custom_select";
 
 export function Book() {
     const { id } = useParams();
@@ -64,56 +69,57 @@ export function Book() {
     return (
         <div className="book">
             <Header />
-            <div className="book-info">
+            <div className="information">
                 <div className="main-info">
-                    <div className="book-cover">
-                        <img src={book.cover}></img>
-                    </div>
-                    <div className="top-info">
-                        <div className="book-title">{book.title}</div>
-                        <div className="book-author" onClick={() => showAuthor(book.author)}>{book.author}</div>
+                    <img src={book.cover} className="book-cover"></img>
+                    <div className="book-main">
+                        <div className="primary">{book.title}</div>
+                        <div className="info-row" onClick={() => showAuthor(book.author)}>
+                            <div className="secondary">Author: </div>
+                            <div className="book-author">{book.author}</div>
+                        </div>
+                        <div className="info-row">
+                            <div className="secondary">Year: </div>
+                            <div>{book.year}</div>
+                        </div>
+                        <div className="info-row">
+                            <div className="secondary">Language: </div>
+                            <div>{book.language}</div>
+                        </div>
+                        <div className="info-row">
+                            <div className="secondary">Pages: </div>
+                            <div>{book.pages}</div>
+                        </div>
                     </div>
                     <div className="book-btns">
-                        <div><Button variant="outlined" onClick={() => addToDefault('Bookmarked Books')}>Bookmark</Button></div>
-                        <div><Button variant="outlined" onClick={() => addToDefault('Favorite Books')}>Favorite</Button></div>
-                        <div><Autocomplete
-                            disablePortal
-                            options={lists}
-                            getOptionLabel={(option) => option.label}
-                            getOptionKey={(option) => option.id}
-                            onChange={(event, value) => setSelected(value.id)}
-                            renderInput={(params) => <TextField {...params} label="Add to list" />}
-                        />
-                            <Button onClick={() => postBook(selected)} variant="outlined">Add</Button>
+                        <div className="btns-row">
+                            <CustomSelect options={lists} getOptionLabel={(option) => option.label} getOptionKey={(option) => option.id}
+                                onChange={(event, value) => setSelected(value.id)} label="Add to list" />
+                            <CustomButton onClick={() => postBook(selected)} text="Add" />
                         </div>
-                    </div>
-                    <div className="side-info">
-                        <div className="summary">{book.summary}</div>
-                        <div className="genres-list">
-                            <div>Genres</div>
-                            {genres.map((g) => {
-                                return (
-                                    <div key={g.id} className="genre-chip" onClick={() => navigate(`/more/genre/${g.id}`)}>{g.name}</div>
-                                );
-                            })}
+                        <div className="btns-row">
+                            <CustomButton onClick={() => addToDefault('Bookmarked Books')} text="Bookmark" startIcon={<Bookmark />} />
+                            <CustomButton variant="outlined" onClick={() => addToDefault('Favorite Books')} text="Favorite" startIcon={<Favorite />} />
                         </div>
-                        <div className="info-row">
-                            <div className="row-title">Year</div>
-                            <div className="row-value">{book.year}</div>
-                        </div>
-                        <div className="info-row">
-                            <div className="row-title">Langauge</div>
-                            <div className="row-value">{book.language}</div>
-                        </div>
-                        <div className="info-row">
-                            <div className="row-title">Pages</div>
-                            <div className="row-value">{book.pages}</div>
-                        </div>
+                        <CustomButton onClick={() => handleClick()} text="Read" />
                     </div>
                 </div>
-                <Button variant="outlined" onClick={() => handleClick()}>READ</Button>
+
+                <div className="summary">
+                    <div className="primary">About {book.title}:</div>
+                    <div>{book.summary}</div>
+                </div>
+                <div className="genres-list">
+                    <div className="primary">Genres:</div>
+                    {genres.map((g) => {
+                        return (
+                            <Chip key={g.id} label={g.name} sx={{ margin: '10px' }} className="genres-card" onClick={() => navigate(`/more/genre/${g.id}`)} />
+                        );
+                    })}
+                </div>
                 <Comments bookID={id} />
             </div>
+            <Footer />
         </div>
     );
 }

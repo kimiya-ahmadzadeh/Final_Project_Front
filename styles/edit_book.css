@@ -1,14 +1,12 @@
-.edit-book {
-    background-color: aliceblue;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    padding: 50px;
-    width: 80%;
-}
-
 .book-info {
     display: flex;
     flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
     gap: 20px;
 }

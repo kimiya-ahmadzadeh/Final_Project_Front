@@ -16,7 +16,7 @@ const MyEdit = styled(Edit)({
     }
 });
 
-export function CustomeIcon(props) {
+export function CustomIcon(props) {
     return (
         <div className='book-btns'>
             {props.type == "del" ? <MyDelete color='action' onClick={props.onClick} /> :

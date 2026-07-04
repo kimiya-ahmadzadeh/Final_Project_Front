@@ -33,7 +33,7 @@ export function BookRows(props) {
             <div className="row-header">
                 <div className="rec-info">
                     <div className="row-name">{props.item.name}</div>
-                    {props.source == "list" ? <div className="row-desc">{props.item.description}</div> : null}
+                    {props.source == "list" ? <div className="row-desc">{"-- " + props.item.description}</div> : null}
                 </div>
                 <CustomButton onClick={showAll} text="Show All" endIcon={<KeyboardArrowRight />} />
             </div>

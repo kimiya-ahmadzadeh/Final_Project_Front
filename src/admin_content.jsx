@@ -4,6 +4,8 @@ import { PaginateArray } from "./paginated_array";
 import { EditBook } from "./edit_book";
 import { useEffect, useState } from "react";
 import { get, GetUserID, post } from "./fetch_data";
+import { CustomButton } from "./custom_button";
+import { CustomField } from "./custom_textfield";
 
 export function AdminContent(props) {
 
@@ -37,32 +39,30 @@ export function AdminContent(props) {
     }, []);
 
     return (
-        <div className="content">
-            {props.type == "Books" ? <div className="admin-tab-content">
+        <div>
+            {props.type == "Books" ? <div className="content">
                 <div className="tab-content-header">
-                    <h3>{props.type}</h3>
-                    <Button variant="outlined" onClick={() => setOpen(true)}>Add</Button>
+                    <CustomButton onClick={() => setOpen(true)} text="Add" />
                 </div>
                 <div>
-                    <PaginateBooks books={props.items} source="admin" changePage={props.changePage} perPage={6} />
+                    <PaginateBooks books={props.items} source="admin" changePage={props.changePage} perPage={9} />
                 </div>
-                <Modal open={open} onClose={() => setOpen(false)}>
+                <Modal open={open} onClose={() => setOpen(false)} className="modal">
                     <EditBook genres={genres} type={false} close={() => closeModal()} />
                 </Modal>
-            </div> : <div className="admin-tab-content">
+            </div> : <div className="content">
                 <div className="tab-content-header">
-                    <h3>{props.type}</h3>
-                    <Button variant="outlined" onClick={() => setOpen(true)}>Add</Button>
+                    <CustomButton onClick={() => setOpen(true)} text="Add" />
                 </div>
                 <div>
-                    <PaginateArray type={props.type} items={props.items} books={props.books} changePage={props.changePage} />
+                    <PaginateArray type={props.type} items={props.items} books={props.books} changePage={props.changePage} perPage={10} />
                 </div>
-                <Modal open={open} onClose={() => setOpen(false)}>
-                    <div className="add-modal">
+                <Modal open={open} onClose={() => setOpen(false)} className="modal">
+                    <div className="modal-content">
                         <div>Add {props.type}</div>
-                        <div><TextField variant="outlined" label="Name" onChange={(e) => setName(e.target.value)} /></div>
-                        {props.type == "Lists" ? <div><TextField variant="outlined" label="Description" onChange={(e) => setDesc(e.target.value)} /></div> : null};
-                        <Button variant="outlined" onClick={() => addItem()}>Add</Button>
+                        <CustomField label="Name" onChange={(e) => setName(e.target.value)} required />
+                        {props.type == "Lists" ? <div><CustomField label="Description" onChange={(e) => setDesc(e.target.value)} /></div> : null}
+                        <CustomButton onClick={() => addItem()} text="Add" />
                     </div>
                 </Modal>
             </div>}

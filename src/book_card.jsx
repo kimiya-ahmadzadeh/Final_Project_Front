@@ -5,7 +5,7 @@ import { Button, Menu, MenuItem, Modal } from "@mui/material";
 import { useEffect, useState } from "react";
 import { EditBook } from "./edit_book";
 import { Delete, Edit } from "@mui/icons-material";
-import { CustomeIcon } from "./custome_icon";
+import { CustomIcon } from "./custom_icon";
 
 export function BookCard(props) {
 
@@ -57,11 +57,11 @@ export function BookCard(props) {
                 </div>
             </div>
             <div className="card-btns">
-                {props.source == "lib" ? <CustomeIcon type="del" onClick={() => deleteBookFromList(props.listID, props.book.id)} /> : null}
-                {props.source == "admin" ? <CustomeIcon type="edit" onClick={() => editBook(props.book.id)} /> : null}
-                {props.source == "admin" ? <CustomeIcon type="del" onClick={() => deleteBook(props.book.id)} /> : null}
+                {props.source == "lib" ? <CustomIcon type="del" onClick={() => deleteBookFromList(props.listID, props.book.id)} /> : null}
+                {props.source == "admin" ? <CustomIcon type="edit" onClick={() => editBook(props.book.id)} /> : null}
+                {props.source == "admin" ? <CustomIcon type="del" onClick={() => deleteBook(props.book.id)} /> : null}
             </div>
-            <Modal open={edit} onClose={() => setEdit(false)}>
+            <Modal open={edit} onClose={() => setEdit(false)} className="modal">
                 <EditBook book={book} bookGenres={bookGenres} genres={genres} type={true} close={() => closeEdit()} />
             </Modal>
         </div>

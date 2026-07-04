@@ -2,6 +2,9 @@ import { Autocomplete, Button, Modal, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import { deleting, get, post, put } from "./fetch_data";
 import "../styles/edit_book.css";
+import { CustomField } from "./custom_textfield";
+import { CustomSelect } from "./custom_select";
+import { CustomButton } from "./custom_button";
 
 export function EditBook(props) {
 
@@ -13,6 +16,7 @@ export function EditBook(props) {
     const [language, setLanguage] = useState(props.type ? props.book.language : "");
     const [pages, setPages] = useState(props.type ? props.book.pages : 0);
     const [pdf, setPdf] = useState(props.type ? props.book.pdf : "");
+    const [cover, setCover] = useState(props.type ? props.book.cover : "");
     const [genres, setGenres] = useState(props.type ? props.bookGenres : []);
 
     const saveBook = async () => {
@@ -21,7 +25,7 @@ export function EditBook(props) {
             window.alert("Enter number.");
         } else {
             if (props.type) {
-                const body = { id: ISBN, title, author, summary, year, language, pages, pdf };
+                const body = { id: ISBN, title, cover, author, summary, year, language, pages, pdf };
                 const edited = await put(`books/${props.book.id}`, body);
                 const deleted = await deleting(`books/genres/${props.book.id}`);
                 genres.forEach(async (g) => {
@@ -30,7 +34,7 @@ export function EditBook(props) {
                 });
             }
             else {
-                const body = { id: ISBN, title, author, summary, year, language, pages, pdf };
+                const body = { id: ISBN, title, cover, author, summary, year, language, pages, pdf };
                 const posted = await post(`books`, body);
                 genres.forEach(async (g) => {
                     const genreBody = { genreID: g.id, bookID: ISBN };
@@ -48,36 +52,36 @@ export function EditBook(props) {
     }
 
     return (
-        <div className="edit-book">
-            <h2>{props.type} book</h2>
+        <div className="modal-content">
+            <h2>{props.type ? "Edit" : "Add"} book</h2>
             <div className="book-info">
-                <TextField label="ISBN" variant="outlined" defaultValue={props.book?.id} onChange={(e) => setISBN(e.target.value)} />
-                <TextField label="Title" variant="outlined" defaultValue={props.book?.title} onChange={(e) => setTitle(e.target.value)} />
-                <TextField label="Author" variant="outlined" defaultValue={props.book?.author} onChange={(e) => setAuthor(e.target.value)} />
-                <TextField label="Year" variant="outlined" defaultValue={props.book?.year} onChange={(e) => setYear(e.target.value)} />
-                <TextField label="Language" variant="outlined" defaultValue={props.book?.language} onChange={(e) => setLanguage(e.target.value)} />
-                <TextField label="Pages" variant="outlined" defaultValue={props.book?.pages} onChange={(e) => setPages(e.target.value)} />
-                <Autocomplete
-                    multiple
-                    limitTags={3}
-                    options={props.genres}
-                    getOptionLabel={(option) => option.label}
-                    getOptionKey={(option) => option.id}
-                    defaultValue={props.genres.filter((o) => props.bookGenres?.includes(o.id))}
-                    onChange={(event, value) => saveGenre(value)}
-                    renderInput={(params) => (
-                        <TextField
-                            {...params}
-                            variant="outlined"
-                            label="Genres"
-                        />
-                    )}
-                >
-                </Autocomplete>
-                <TextField label="PDF Path" variant="outlined" defaultValue={props.book?.pdf} onChange={(e) => setPdf(e.target.value)} />
-                <TextField label="Summary" variant="outlined" defaultValue={props.book?.summary} onChange={(e) => setSummary(e.target.value)} />
+                <div className="info-row">
+                    <CustomField label="ISBN" defaultValue={props.book?.id} onChange={(e) => setISBN(e.target.value)} />
+                    <CustomField label="Title" defaultValue={props.book?.title} onChange={(e) => setTitle(e.target.value)} />
+                </div>
+                <div className="info-row">
+                    <CustomField label="Author" defaultValue={props.book?.author} onChange={(e) => setAuthor(e.target.value)} />
+                    <CustomField label="Year" defaultValue={props.book?.year} onChange={(e) => setYear(e.target.value)} />
+                </div>
+                <div className="info-row">
+                    <CustomField label="Language" defaultValue={props.book?.language} onChange={(e) => setLanguage(e.target.value)} />
+                    <CustomField label="Pages" defaultValue={props.book?.pages} onChange={(e) => setPages(e.target.value)} />
+                </div>
+                <div className="info-row">
+                    <CustomField label="Cover" defaultValue={props.book?.cover} onChange={(e) => setCover(e.target.value)} />
+                    <CustomField label="PDF Path" defaultValue={props.book?.pdf} onChange={(e) => setPdf(e.target.value)} />
+                </div>
+                <div className="info-row">
+                    <CustomSelect
+                        multiple options={props.genres} getOptionLabel={(option) => option.label}
+                        getOptionKey={(option) => option.id} defaultValue={props.genres.filter((o) => props.bookGenres?.includes(o.id))}
+                        onChange={(event, value) => saveGenre(value)} label="Genres" />
+                </div>
+                <div className="info-row">
+                    <CustomField label="Summary" multiline rows={4} defaultValue={props.book?.summary} onChange={(e) => setSummary(e.target.value)} />
+                </div>
             </div>
-            <Button variant="outlined" onClick={() => saveBook()}>Save</Button>
+            <CustomButton onClick={() => saveBook()} text="Save" />
         </div >
     );
 }

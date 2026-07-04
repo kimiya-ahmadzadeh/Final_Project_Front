@@ -6,6 +6,7 @@ import { get } from "./fetch_data";
 import { useEffect } from "react";
 import { AdminContent } from "./admin_content";
 import { Footer } from "./footer";
+import "../styles/admin_page.css";
 
 export function AdminPage() {
 

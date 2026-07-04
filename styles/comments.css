@@ -4,15 +4,35 @@
     overflow: auto hidden;
     scroll-snap-type: x mandatory;
     white-space: nowrap;
-    width: 50%;
+    width: 85%;
     gap: 20px;
     padding: 10px;
+}
+
+.comment-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
 }
 
 .comment {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    border: 1px solid;
     padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #00000063;
+    box-shadow: 7px 7px 10px #848984;
+    margin: 10px;
+}
+
+.comment-text {
+    white-space: normal;
+}
+
+.post-comment {
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }

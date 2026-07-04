@@ -42,8 +42,8 @@ export function Genre() {
                 <div className="genre">
                     <div className="genre-header">
                         <div>
-                            <div className="primary">Books related to {item.name}</div>
-                            {name == "list" ? <div className="secondary">{item.description}</div> : null}
+                            <div className="primary">{item.name} Books</div>
+                            {name == "list" ? <div className="secondary">{"-- " + item.description}</div> : null}
                         </div>
                         <div className="primary">Total books: {books.length}</div>
                     </div>

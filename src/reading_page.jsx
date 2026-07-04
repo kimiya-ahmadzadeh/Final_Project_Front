@@ -23,9 +23,9 @@ export function ReadBook() {
     return (
         <div className="reading-page">
             <Header />
-            <div className="pdf" style={{ height: '90dvh' }}>
+            <div className="pdf">
                 {pdf == "" ? null : <PDFViewer
-                    style={{ height: '90dvh' }}
+                    style={{ height: '80dvh', margin: '30px', border: '1px solid #00000068' }}
                     config={{
                         src: pdf,
                         theme: { preference: 'light' }

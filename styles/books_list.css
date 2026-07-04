@@ -5,13 +5,12 @@
 }
 
 .list-header {
-    height: 5%;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.edit-list-modal {
+.list-modal {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -24,7 +23,22 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: antiquewhite;
-    height: 40%;
-    width: 40%;
+    background-color: #a5bba3;
+    padding: 50px;
+    gap: 30px;
+    border-radius: 5px;
+    box-shadow: 15px 15px 15px #514d4d;
+}
+
+.list-name {
+    font-size: large;
+}
+
+.list-desc {
+    color: #5f5f5f;
+}
+
+.list-btns {
+    display: flex;
+    gap: 30px;
 }

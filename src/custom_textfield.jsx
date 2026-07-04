@@ -14,7 +14,15 @@ const MyTextField = styled(TextField)({
 
 export function CustomField(props) {
     return (
-        <MyTextField variant="outlined" label={props.label} onChange={props.onChange}
-            multiline={props.multiline} defaultValue={props.defaultValue} required={props.required} type={props.type} />
+        <MyTextField variant="outlined"
+            label={props.label}
+            onChange={props.onChange}
+            rows={props.rows}
+            multiline={props.multiline}
+            defaultValue={props.defaultValue}
+            value={props.value}
+            required={props.required}
+            type={props.type}
+        />
     );
 }
