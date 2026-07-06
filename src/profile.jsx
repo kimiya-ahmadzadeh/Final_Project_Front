@@ -17,8 +17,6 @@ export function Profile() {
     const [user, setUser] = useState();
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
     const [showAlert, setShowAlert] = useState("none");
     const [comments, setComments] = useState([]);
     const [changePage, setChangePage] = useState(0);
@@ -32,20 +30,13 @@ export function Profile() {
         setUser(loadedUser);
         setFirstName(loadedUser.first_name);
         setLastName(loadedUser.last_name);
-        setUsername(loadedUser.username);
-        setPassword(loadedUser.password);
         const loadedComments = await get(`comments/user/${userID}`);
         setComments(loadedComments);
     }
 
     const editUser = async () => {
-        if (username.length > 0 && password.length > 0) {
-            const body = { id: userID, first_name: firstName, last_name: lastName, username, password };
-            const editedUser = await put(`users`, body);
-        }
-        else {
-            setShowAlert('flex');
-        }
+        const body = { id: userID, first_name: firstName, last_name: lastName };
+        const editedUser = await put(`users`, body);
     }
 
     const openEdit = (id, title, text) => {
@@ -54,10 +45,15 @@ export function Profile() {
     }
 
     const editComment = async () => {
-        const body = { id: selected.id, text: selected.text };
-        const edited = await put(`comments`, body);
-        setOpen(false);
-        setChangePage(changePage + 1);
+        if (selected.text.length > 0) {
+            const body = { id: selected.id, text: selected.text };
+            const edited = await put(`comments`, body);
+            setOpen(false);
+            setChangePage(changePage + 1);
+        }
+        else {
+            setShowAlert('flex');
+        }
     }
 
     const deleteComment = async (id) => {
@@ -82,12 +78,6 @@ export function Profile() {
                                     <CustomField label="First Name" defaultValue={firstName} onChange={(e) => setFirstName(e.target.value.trim())} />
                                     <CustomField label="Last Name" defaultValue={lastName} onChange={(e) => setLastName(e.target.value.trim())} />
                                 </div>
-                                <div className="login-info">
-                                    <CustomField label="User Name" defaultValue={username} required onChange={(e) => setUsername(e.target.value.trim())} />
-                                    <CustomField label="Password" defaultValue={password} required type="password" onChange={(e) => setPassword(e.target.value.trim())} />
-                                </div>
-                                <Alert severity="error" style={{ display: showAlert }}
-                                    action={<Close onClick={() => setShowAlert("none")} />}>Fill the required fields</Alert>
                             </div>
                             <CustomButton onClick={editUser} text="Confirm Changes" />
                         </div>
@@ -118,7 +108,9 @@ export function Profile() {
                         <div className="modal-content">
                             <div>Edit comment on {selected.title}</div>
                             <CustomField label="Comment" defaultValue={selected.text}
-                                onChange={(e) => setSelected({ id: selected.id, text: e.target.value })} />
+                                onChange={(e) => setSelected({ id: selected.id, title: selected.title, text: e.target.value.trim() })} />
+                            <Alert severity="error" style={{ display: showAlert }}
+                                action={<Close onClick={() => setShowAlert("none")} />}>Comment can't be empty!</Alert>
                             <CustomButton text="Save" onClick={editComment} />
                         </div>
                     </Modal>

@@ -6,6 +6,7 @@ import { CustomField } from "./custom_textfield";
 import { CustomSelect } from "./custom_select";
 import { CustomButton } from "./custom_button";
 import { Close } from "@mui/icons-material";
+import { Loading } from "./loading";
 
 export function PaginateArray(props) {
 

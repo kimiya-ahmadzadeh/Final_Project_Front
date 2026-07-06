@@ -2,8 +2,6 @@ import '../styles/header.css';
 import { Link, useNavigate } from "react-router-dom";
 import Button from '@mui/material/Button';
 import { Navigate } from 'react-router-dom';
-// import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
-// import ThreeDRotation from '@mui/icons-material/ThreeDRotation';
 import { GetAdmin } from './fetch_data';
 import { CustomButton } from './custom_button';
 import { AccountCircle, AdminPanelSettings, Home, LibraryBooks, LocalLibrary, Logout, Search } from '@mui/icons-material';
@@ -14,8 +12,8 @@ export function Header() {
     const admin = GetAdmin();
 
     const logout = () => {
-        localStorage.setItem("userAuth", JSON.stringify(""));
-        navigate("/login");
+        localStorage.setItem("userAuth", JSON.stringify(null));
+        navigate("/");
     }
 
     return (

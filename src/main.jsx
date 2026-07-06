@@ -14,12 +14,12 @@ import { ReadBook } from './reading_page.jsx';
 import { AdminPage } from './admin_page.jsx';
 
 const router = createBrowserRouter([
-  { path: "/", element: <HomePage /> },
+  { path: "/", element: <LoginPage /> },
   { path: "/search", element: <SearchBooks /> },
   { path: "/library", element: <Library /> },
   { path: "/profile", element: <Profile /> },
   { path: "/book/:id", element: <Book /> },
-  { path: "/login", element: <LoginPage /> },
+  { path: "/home", element: <HomePage /> },
   { path: "/more/:name/:id", element: <Genre /> },
   { path: "/book/read/:id", element: <ReadBook /> },
   { path: "/admin", element: <AdminPage /> }

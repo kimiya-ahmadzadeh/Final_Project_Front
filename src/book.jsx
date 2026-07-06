@@ -44,17 +44,12 @@ export function Book() {
     const addToDefault = async (listName) => {
         const body = { bookID: id, listID: null, listName, userID };
         const posted = await post(`lists`, body);
-        if (!posted) {
-            window.alert("can't add twice");
-        }
     }
 
-    const postBook = async (listID) => {
-        if (selected != "") {
-            const body = { bookID: id, listID, listName: "", userID };
+    const postBook = async () => {
+        if (selected != null) {
+            const body = { bookID: id, listID: selected.id, listName: "", userID };
             const inserted = await post(`lists`, body);
-        } else {
-            window.alert("choose a list first.")
         }
     }
 
@@ -71,30 +66,30 @@ export function Book() {
             <Header />
             <div className="information">
                 <div className="main-info">
-                    <img src={book.cover} className="book-cover"></img>
+                    <img src={book?.cover} className="book-cover"></img>
                     <div className="book-main">
-                        <div className="primary">{book.title}</div>
-                        <div className="info-row" onClick={() => showAuthor(book.author)}>
+                        <div className="primary">{book?.title}</div>
+                        <div className="info-card-row" onClick={() => showAuthor(book?.author)}>
                             <div className="secondary">Author: </div>
-                            <div className="book-author">{book.author}</div>
+                            <div className="book-author">{book?.author}</div>
                         </div>
-                        <div className="info-row">
+                        <div className="info-card-row">
                             <div className="secondary">Year: </div>
-                            <div>{book.year}</div>
+                            <div>{book?.year}</div>
                         </div>
-                        <div className="info-row">
+                        <div className="info-card-row">
                             <div className="secondary">Language: </div>
-                            <div>{book.language}</div>
+                            <div>{book?.language}</div>
                         </div>
-                        <div className="info-row">
+                        <div className="info-card-row">
                             <div className="secondary">Pages: </div>
-                            <div>{book.pages}</div>
+                            <div>{book?.pages}</div>
                         </div>
                     </div>
                     <div className="book-btns">
                         <div className="btns-row">
                             <CustomSelect options={lists} getOptionLabel={(option) => option.label} getOptionKey={(option) => option.id}
-                                onChange={(event, value) => setSelected(value.id)} label="Add to list" />
+                                onChange={(event, value) => setSelected(value)} label="Add to list" />
                             <CustomButton onClick={() => postBook(selected)} text="Add" />
                         </div>
                         <div className="btns-row">
@@ -106,12 +101,12 @@ export function Book() {
                 </div>
 
                 <div className="summary">
-                    <div className="primary">About {book.title}:</div>
-                    <div>{book.summary}</div>
+                    <div className="primary">About {book?.title}:</div>
+                    <div>{book?.summary}</div>
                 </div>
                 <div className="genres-list">
                     <div className="primary">Genres:</div>
-                    {genres.map((g) => {
+                    {genres?.map((g) => {
                         return (
                             <Chip key={g.id} label={g.name} sx={{ margin: '10px' }} className="genres-card" onClick={() => navigate(`/more/genre/${g.id}`)} />
                         );

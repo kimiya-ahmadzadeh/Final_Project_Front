@@ -39,6 +39,8 @@ export function AdminContent(props) {
             (props.type == "Genres") ? await post(`genres`, { name })
                 : await post(`admin/lists`, { name, description: desc, user_id: userID });
             setOpen(false);
+            setDesc("");
+            setName("");
             props.changePage();
         }
         else {
@@ -70,7 +72,7 @@ export function AdminContent(props) {
                 <div>
                     <PaginateArray type={props.type} items={props.items} books={props.books} changePage={props.changePage} perPage={10} />
                 </div>
-                <Modal open={open} onClose={() => setOpen(false)} className="modal">
+                <Modal open={open} onClose={() => { setOpen(false), setShowAlert('none'), setDesc(""), setName("") }} className="modal">
                     <div className="modal-content">
                         <div>Add {props.type}</div>
                         <CustomField label="Name" onChange={(e) => setName(e.target.value.trim())} required />

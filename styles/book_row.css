@@ -16,6 +16,11 @@
     width: 100%;
 }
 
+.rec-info {
+    white-space: normal;
+    width: 80%;
+}
+
 .row-name {
     font-size: larger;
 }

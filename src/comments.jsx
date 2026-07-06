@@ -30,9 +30,9 @@ export function Comments(props) {
 
     return (
         <div className="comment-section">
-            <div className="primary">Comments ({comments.length})</div>
+            <div className="primary">Comments ({comments?.length})</div>
             <div className="comments">
-                {comments.map((c) => {
+                {comments?.map((c) => {
                     return (
                         <div key={c.id} className="comment">
                             <div className="comment-header">

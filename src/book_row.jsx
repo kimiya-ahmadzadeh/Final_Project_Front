@@ -26,7 +26,7 @@ export function BookRows(props) {
 
     useEffect(() => {
         loadBooks();
-    }, [props.item]);
+    }, [props]);
 
     return (
         <div className="book-row">

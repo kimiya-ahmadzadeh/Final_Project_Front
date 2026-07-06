@@ -6,6 +6,8 @@ import { get, post } from "./fetch_data";
 import { CustomField } from "./custom_textfield";
 import { CustomButton } from "./custom_button";
 import { Close } from "@mui/icons-material";
+import { sha256 } from "js-sha256";
+
 
 export function LoginPage() {
 
@@ -23,16 +25,17 @@ export function LoginPage() {
     useEffect(() => {
         const auth = JSON.parse(localStorage.getItem("userAuth"));
         if (auth && auth.id) {
-            navigate("/");
+            navigate("/home");
         }
     }, []);
 
     const login = async () => {
-        const body = { username, password }
+        const hash = sha256(password);
+        const body = { username, password: hash }
         const response = await post(`login`, body);
         if (!response.error) {
             localStorage.setItem("userAuth", JSON.stringify(response.user));
-            navigate("/");
+            navigate("/home");
             setUsername(" ");
             setPassword(" ");
         } else {
@@ -52,7 +55,8 @@ export function LoginPage() {
                 setModalAlert('flex');
             }
             if (checkname) {
-                const body = { first_name: firstName, last_name: lastName, username, password, is_admin: false };
+                const hash = sha256(password);
+                const body = { first_name: firstName, last_name: lastName, username, password: hash, is_admin: false };
                 const posted = await post(`users`, body);
                 setOpen(false);
                 setModalAlert("none");

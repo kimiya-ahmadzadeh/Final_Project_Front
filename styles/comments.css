@@ -25,11 +25,16 @@
     border: 1px solid #00000063;
     box-shadow: 7px 7px 10px #848984;
     margin: 10px;
+    min-width: 30%;
 }
 
 .comment-text {
     white-space: normal;
 }
+
+/* .comment-header {
+    white-space: normal;
+} */
 
 .post-comment {
     display: flex;

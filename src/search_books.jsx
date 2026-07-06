@@ -110,7 +110,7 @@ export function SearchBooks() {
                         <CustomSelect multiple options={genresOpt} getOptionLabel={(option) => option.label}
                             getOptionKey={(option) => option.id} onChange={(event, value) => setGenres(value)} label="Genre" />
                         <CustomSelect multiple options={langOpt} getOptionLabel={(option) => option.label}
-                            onChange={(event, value) => setLangs(value)} label="Languae" />
+                            onChange={(event, value) => setLangs(value)} label="Language" />
                         <CustomSelect options={pagesOpt} onChange={(event, value) => setPages(value)} label="Pages" />
                     </div>
                 </div>

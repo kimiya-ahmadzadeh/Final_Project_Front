@@ -61,6 +61,13 @@
     overflow: hidden auto;
 }
 
+.comment-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 35%;
+}
+
 .comment {
     white-space: nowrap;
 }
