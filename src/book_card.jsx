@@ -1,11 +1,10 @@
-import { Link, useNavigate } from "react-router-dom"
-import "../styles/book_card.css"
+import { Link, useNavigate } from "react-router-dom";
 import { deleting, get, GetUserID, post } from "./fetch_data";
-import { Button, Menu, MenuItem, Modal } from "@mui/material";
+import { Menu, MenuItem, Modal } from "@mui/material";
 import { useEffect, useState } from "react";
 import { EditBook } from "./edit_book";
-import { Delete, Edit } from "@mui/icons-material";
-import { CustomIcon } from "./custom_icon";
+import { CustomIcon } from "../customs/custom_icon";
+import "../styles/book_card.css";
 
 export function BookCard(props) {
 

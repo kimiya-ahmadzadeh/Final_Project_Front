@@ -23,7 +23,7 @@ export function ReadBook() {
     return (
         <div className="reading-page">
             <Header />
-            <div className="pdf">
+            <div className="pdf" style={{ minHeight: '80dvh' }}>
                 {pdf == "" ? null : <PDFViewer
                     style={{ height: '80dvh', margin: '30px', border: '1px solid #00000068' }}
                     config={{

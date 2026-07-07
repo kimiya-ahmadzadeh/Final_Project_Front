@@ -1,10 +1,9 @@
-import '../styles/header.css';
 import { Link, useNavigate } from "react-router-dom";
-import Button from '@mui/material/Button';
 import { Navigate } from 'react-router-dom';
 import { GetAdmin } from './fetch_data';
-import { CustomButton } from './custom_button';
-import { AccountCircle, AdminPanelSettings, Home, LibraryBooks, LocalLibrary, Logout, Search } from '@mui/icons-material';
+import { CustomButton } from '../customs/custom_button';
+import { AccountCircle, AdminPanelSettings, Home, LocalLibrary, Logout, Search } from '@mui/icons-material';
+import '../styles/header.css';
 
 export function Header() {
 
@@ -19,8 +18,8 @@ export function Header() {
     return (
         <div className="main-header">
             <div className="header-content">
-                <h1>Book Worm</h1>
-                <Link to="/">
+                <h1 onClick={() => navigate("/home")}> Book Worm</h1>
+                <Link to="/home">
                     <CustomButton variant="outlined" text="Home" startIcon={<Home />} />
                 </Link>
                 <Link to="/search">
@@ -38,5 +37,5 @@ export function Header() {
                 <CustomButton variant="outlined" text="Log Out" startIcon={<Logout />} onClick={logout} />
             </div>
         </div>
-    )
+    );
 }

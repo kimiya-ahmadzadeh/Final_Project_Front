@@ -1,17 +1,17 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import "../styles/main.css";
 import App from './App.jsx';
 import { HomePage } from './home_page.jsx';
 import { Profile } from './profile.jsx';
 import { Library } from './library.jsx';
 import { Book } from './book.jsx';
 import { LoginPage } from './login.jsx';
-import { Genre } from './more_books.jsx';
+import { More } from './more_books.jsx';
 import { SearchBooks } from './search_books.jsx';
 import { ReadBook } from './reading_page.jsx';
 import { AdminPage } from './admin_page.jsx';
+import "../styles/main.css";
 
 const router = createBrowserRouter([
   { path: "/", element: <LoginPage /> },
@@ -20,7 +20,7 @@ const router = createBrowserRouter([
   { path: "/profile", element: <Profile /> },
   { path: "/book/:id", element: <Book /> },
   { path: "/home", element: <HomePage /> },
-  { path: "/more/:name/:id", element: <Genre /> },
+  { path: "/more/:name/:id", element: <More /> },
   { path: "/book/read/:id", element: <ReadBook /> },
   { path: "/admin", element: <AdminPage /> }
 ]);

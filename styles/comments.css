@@ -32,10 +32,6 @@
     white-space: normal;
 }
 
-/* .comment-header {
-    white-space: normal;
-} */
-
 .post-comment {
     display: flex;
     align-items: center;

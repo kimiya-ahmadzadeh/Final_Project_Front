@@ -1,15 +1,14 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { Header } from "./header";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { get, GetUserID, post } from "./fetch_data";
-import { useEffect } from "react";
-import { Autocomplete, Button, Chip, TextField } from "@mui/material";
+import { Chip } from "@mui/material";
 import { Comments } from "./comments";
-import "../styles/book.css";
 import { Footer } from "./footer";
-import { CustomButton } from "./custom_button";
+import { CustomButton } from "../customs/custom_button";
 import { Bookmark, Favorite, MonitorHeart } from "@mui/icons-material";
-import { CustomSelect } from "./custom_select";
+import { CustomSelect } from "../customs/custom_select";
+import "../styles/book.css";
 
 export function Book() {
     const { id } = useParams();
@@ -70,20 +69,24 @@ export function Book() {
                     <div className="book-main">
                         <div className="primary">{book?.title}</div>
                         <div className="info-card-row" onClick={() => showAuthor(book?.author)}>
-                            <div className="secondary">Author: </div>
+                            <div className="secondary-book">Author: </div>
                             <div className="book-author">{book?.author}</div>
                         </div>
                         <div className="info-card-row">
-                            <div className="secondary">Year: </div>
+                            <div className="secondary-book">Year: </div>
                             <div>{book?.year}</div>
                         </div>
                         <div className="info-card-row">
-                            <div className="secondary">Language: </div>
+                            <div className="secondary-book">Language: </div>
                             <div>{book?.language}</div>
                         </div>
                         <div className="info-card-row">
-                            <div className="secondary">Pages: </div>
+                            <div className="secondary-book">Pages: </div>
                             <div>{book?.pages}</div>
+                        </div>
+                        <div className="info-card-row">
+                            <div className="secondary-book">ISBN: </div>
+                            <div>{book?.isbn}</div>
                         </div>
                     </div>
                     <div className="book-btns">

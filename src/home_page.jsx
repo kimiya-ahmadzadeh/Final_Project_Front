@@ -1,5 +1,4 @@
 import { useState } from "react";
-import "../styles/home_page.css";
 import { BookRows } from "./book_row";
 import { get } from "./fetch_data";
 import { Header } from "./header";
@@ -8,6 +7,7 @@ import { Loading } from "./loading";
 import { useNavigate } from "react-router-dom";
 import { Footer } from "./footer";
 import { Chip } from "@mui/material";
+import "../styles/home_page.css";
 
 export function HomePage() {
 
@@ -34,7 +34,10 @@ export function HomePage() {
             {randGenres == undefined || recs == undefined ? <Loading /> :
                 <div className="home-page">
                     <Header />
-                    <div className="main-pic">BACKGROUND PICTUREEEEEEEEEEEEEEEEEEEEEEEEEEEE</div>
+                    <div className="main-pic">
+                        <div className="welcome">Welcome to Bookworm</div>
+                        <img src="/assets/covers/library4.jpg"></img>
+                    </div>
                     {recs.map((r) => {
                         return (
                             <BookRows item={r} source={"list"} array={false} />

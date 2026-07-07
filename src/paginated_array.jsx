@@ -1,10 +1,10 @@
-import { Alert, Autocomplete, Button, Modal, Pagination, TextField } from "@mui/material";
+import { Alert, Modal, Pagination } from "@mui/material";
 import { useState } from "react";
 import { deleting, get, GetUserID, post, put } from "./fetch_data";
-import { CustomIcon } from "./custom_icon";
-import { CustomField } from "./custom_textfield";
-import { CustomSelect } from "./custom_select";
-import { CustomButton } from "./custom_button";
+import { CustomIcon } from "../customs/custom_icon";
+import { CustomField } from "../customs/custom_textfield";
+import { CustomSelect } from "../customs/custom_select";
+import { CustomButton } from "../customs/custom_button";
 import { Close } from "@mui/icons-material";
 import { Loading } from "./loading";
 

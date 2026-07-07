@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { get, GetUserID, post } from "./fetch_data";
+import { CustomField } from "../customs/custom_textfield";
+import { CustomButton } from "../customs/custom_button";
 import "../styles/comments.css";
-import { Button, TextField } from "@mui/material";
-import { CustomField } from "./custom_textfield";
-import { CustomButton } from "./custom_button";
 
 export function Comments(props) {
 
@@ -45,7 +44,7 @@ export function Comments(props) {
                 })}
             </div>
             <div className="post-comment">
-                <CustomField label="Write a comment..." onChange={(e) => setUserComment(e.target.value)} value={userComment} multiline rows={2} />
+                <CustomField label="Write a comment..." onChange={(e) => setUserComment(e.target.value)} value={userComment} multiline rows={3} />
                 <CustomButton onClick={() => postComment(userComment)} text="Post" />
             </div>
         </div>

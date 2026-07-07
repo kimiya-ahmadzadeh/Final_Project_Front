@@ -1,23 +1,20 @@
-import { Button, Modal, TextField, Autocomplete, InputLabel, Select, } from '@mui/material';
-import '../styles/search_books.css';
+import { Modal } from '@mui/material';
 import { get } from "./fetch_data";
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Loading } from './loading';
 import { Header } from './header';
 import { PaginateBooks } from './paginated_books';
 import { Footer } from './footer';
-import { CustomButton } from './custom_button';
+import { CustomButton } from '../customs/custom_button';
 import { Search } from '@mui/icons-material';
-import { CustomSelect } from './custom_select';
-import { CustomField } from './custom_textfield';
-
+import { CustomSelect } from '../customs/custom_select';
+import { CustomField } from '../customs/custom_textfield';
+import '../styles/search_books.css';
 
 export function SearchBooks() {
 
     const navigate = useNavigate();
-
     const pagesOpt = ["pages <= 100", "100 < pages <= 300", "300 < pages <= 500", "pages > 500"];
     const [genresOpt, setGenresOpt] = useState([]);
     const [langOpt, setLangOpt] = useState([]);
@@ -121,5 +118,5 @@ export function SearchBooks() {
             </div>
             <Footer />
         </div>
-    )
+    );
 }

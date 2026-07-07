@@ -8,7 +8,7 @@ import { Loading } from "./loading";
 import { Footer } from "./footer";
 import "../styles/more_books.css";
 
-export function Genre() {
+export function More() {
 
     const { id, name } = useParams();
     const [item, setItem] = useState([]);
@@ -39,15 +39,15 @@ export function Genre() {
         <>
             <Header />
             {item == undefined || books == undefined ? <Loading /> :
-                <div className="genre">
-                    <div className="genre-header">
-                        <div>
+                <div className="category">
+                    <div className="category-header">
+                        <div className="category-desc">
                             <div className="primary">{item.name} Books</div>
                             {name == "list" ? <div className="secondary">{item.description}</div> : null}
                         </div>
                         <div className="primary">Total books: {books.length}</div>
                     </div>
-                    <div className="genre-books">
+                    <div className="category-books">
                         <PaginateBooks books={books} visibility={"hidden"} perPage={9} />
                     </div>
                 </div>}

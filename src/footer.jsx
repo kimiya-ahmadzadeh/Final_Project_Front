@@ -7,5 +7,5 @@ export function Footer() {
             <div>Legal</div>
             <div>Blog</div>
         </div>
-    )
+    );
 }

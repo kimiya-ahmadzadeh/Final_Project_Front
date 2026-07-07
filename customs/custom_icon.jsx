@@ -1,6 +1,5 @@
 import { Delete, Edit } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
-import { color } from '@mui/system';
 
 const MyDelete = styled(Delete)({
     ':hover': {
@@ -23,5 +22,5 @@ export function CustomIcon(props) {
                 <MyEdit color='action' onClick={props.onClick} />}
 
         </div>
-    )
+    );
 }

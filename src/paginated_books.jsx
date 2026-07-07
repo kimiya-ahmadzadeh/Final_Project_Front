@@ -1,18 +1,13 @@
-import "../styles/paginated_books.css";
 import { useEffect, useState } from "react";
 import { BookCard } from "./book_card";
 import { Pagination } from "@mui/material";
 import { Loading } from "./loading";
-
+import "../styles/paginated_books.css";
 
 export function PaginateBooks(props) {
     const [page, setPage] = useState(1);
     const pageCount = Math.ceil(props.books?.length / props.perPage);
     const currentBooks = props.books?.slice((page - 1) * props.perPage, ((page - 1) * props.perPage + props.perPage));
-
-    const handlePageClick = (event, value) => {
-        setPage(value);
-    };
 
     return (
         <>
@@ -27,7 +22,7 @@ export function PaginateBooks(props) {
                             })}
                         </div>
                         <div className="pages-control">
-                            <Pagination count={pageCount} page={page} onChange={handlePageClick} />
+                            <Pagination count={pageCount} page={page} onChange={(event, value) => { setPage(value) }} />
                         </div>
                     </>}
                 </div>}

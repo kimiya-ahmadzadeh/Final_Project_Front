@@ -1,12 +1,11 @@
-import { Button, Tab, Tabs } from "@mui/material";
-import "../styles/book_row.css";
+import { Tab, Tabs } from "@mui/material";
 import { BookCard } from "./book_card";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { get } from "./fetch_data";
 import { useNavigate } from "react-router-dom";
-import { CustomButton } from "./custom_button";
+import { CustomButton } from "../customs/custom_button";
 import { KeyboardArrowRight } from "@mui/icons-material";
+import "../styles/book_row.css";
 
 export function BookRows(props) {
 
@@ -16,7 +15,7 @@ export function BookRows(props) {
     const loadBooks = async () => {
         const loadedBooks = (props.source == "genre") ? await get(`books/genre/${props.item?.id}`)
             : await get(`lists/${props.item?.id}`);
-        const displayedBooks = loadedBooks.slice(0, 5); // only show 5 books in homepage
+        const displayedBooks = loadedBooks.slice(0, 5);
         setBooks(displayedBooks);
     }
 
@@ -45,5 +44,5 @@ export function BookRows(props) {
                 })}
             </div>
         </div>
-    )
+    );
 }

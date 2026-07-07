@@ -1,16 +1,15 @@
-import "../styles/profile.css";
 import { Header } from "./header";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { deleting, get, GetUserID, put } from "./fetch_data";
 import { Loading } from "./loading";
 import { Footer } from "./footer";
-import { CustomField } from "./custom_textfield";
-import { CustomButton } from "./custom_button";
-import { CustomIcon } from "./custom_icon";
+import { CustomField } from "../customs/custom_textfield";
+import { CustomButton } from "../customs/custom_button";
+import { CustomIcon } from "../customs/custom_icon";
 import { Alert, Modal } from "@mui/material";
 import { Close } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import "../styles/profile.css";
 
 export function Profile() {
 

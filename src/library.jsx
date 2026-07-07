@@ -1,5 +1,4 @@
-import { List, ListItem, ListItemButton, ListItemText, Tabs, Tab, Button, Modal, TextField, Alert } from "@mui/material";
-import "../styles/library.css";
+import { Tabs, Tab, Modal, Alert } from "@mui/material";
 import { Header } from "./header";
 import { BooksList } from "./books_list";
 import { useEffect, useState } from "react";
@@ -7,9 +6,10 @@ import { Link } from "react-router-dom";
 import { get, GetUserID, post } from "./fetch_data";
 import { Loading } from "./loading";
 import { Footer } from "./footer";
-import { CustomButton } from "./custom_button";
-import { CustomField } from "./custom_textfield";
+import { CustomButton } from "../customs/custom_button";
+import { CustomField } from "../customs/custom_textfield";
 import { Close } from "@mui/icons-material";
+import "../styles/library.css";
 
 export function Library(props) {
 
@@ -33,8 +33,8 @@ export function Library(props) {
     }, [changeList]);
 
     const handleChange = (changeTab) => {
-        if (changeTab) setTab(0); // when a list is deleted, select first tab
-        setChangeList(changeList + 1); // rerender page when a list is changed
+        if (changeTab) setTab(0);
+        setChangeList(changeList + 1);
     };
 
     const addList = async () => {
