@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:5000";
+const BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 
 export function GetUserID() {
     const user = JSON.parse(localStorage.getItem("userAuth"));
