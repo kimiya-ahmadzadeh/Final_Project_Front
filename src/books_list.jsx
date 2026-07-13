@@ -19,7 +19,7 @@ export function BooksList(props) {
     const [alertText, setAlertText] = useState("");
 
     const loadBooks = async () => {
-        const loadedBooks = await get(`lists/${props.list?.id}`);
+        const loadedBooks = await get(`lists/${props.list.id}`);
         setListName(props.list?.name);
         setListDesc(props.list?.description);
         setBooks(loadedBooks);
@@ -59,15 +59,15 @@ export function BooksList(props) {
                 <div className="books-list">
                     <div className="list-header">
                         <div className="list-info">
-                            <div className="list-name">{props.list.name}</div>
-                            <div className="list-desc">{props.list.description}</div>
+                            <div className="list-name">{props.list?.name}</div>
+                            <div className="list-desc">{props.list?.description}</div>
                         </div>
-                        <div className="list-btns" style={{ visibility: props.list.created ? "visible" : "hidden" }}>
+                        <div className="list-btns" style={{ visibility: props.list?.created ? "visible" : "hidden" }}>
                             <CustomIcon type="edit" onClick={() => setOpen(true)} />
                             <CustomIcon type="del" onClick={() => deleteList()} />
                         </div>
                     </div>
-                    <PaginateBooks books={books} listID={props.list.id} source={props.source} changePage={props.changePage} perPage={6} />
+                    <PaginateBooks books={books} listID={props.list?.id} source={props.source} changePage={props.changePage} perPage={6} />
                     <Modal open={open} onClose={() => setOpen(false)} className="list-modal">
                         <div className="modal-list">
                             <h3>Edit List</h3>

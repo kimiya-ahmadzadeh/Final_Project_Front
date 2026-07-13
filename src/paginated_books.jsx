@@ -9,6 +9,10 @@ export function PaginateBooks(props) {
     const pageCount = Math.ceil(props.books?.length / props.perPage);
     const currentBooks = props.books?.slice((page - 1) * props.perPage, ((page - 1) * props.perPage + props.perPage));
 
+    useEffect(() => {
+        setPage(1);
+    }, [props.books]);
+
     return (
         <>
             {props.books == undefined ? <Loading /> :
